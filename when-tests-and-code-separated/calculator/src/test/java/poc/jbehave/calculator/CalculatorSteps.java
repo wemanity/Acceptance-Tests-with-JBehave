@@ -93,4 +93,9 @@ public class CalculatorSteps {
         }
         assertThat("Wrong error message", errorMessageFound, is(true));
     }
+
+    @Then("the calculator should not be in error")
+    public void assertNoErrorMessageIsDisplayed() {
+        assertThat("Unexpected error", exceptions, empty());
+    }
 }
