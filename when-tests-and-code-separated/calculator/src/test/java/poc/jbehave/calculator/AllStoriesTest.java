@@ -54,14 +54,23 @@ public class AllStoriesTest extends JUnitStories {
     }
 
     /**
-     * Configuration de l'environnement d'exécution de JBehave :</br>
+     * <p>
+     * Configuration de l'environnement d'exécution de JBehave :
      * <ul>
      * <li>CONSOLE : sortie des rapports en console pour facilitrer la phase de
      * développement dans l'IDE</li>
      * <li>HTML_TEMPLATE : génération de rapports HTML pour une meilleure
      * lisibilité au niveau de la PIC</li>
-     * <li></li>
+     * <li>Stratégie transmise à useStepMonitor() :
+     * <ul>
+     * <li>Par défaut : stratégie qui veut que les étapes du test à PENDING
+     * soient ignorées, ainsi le test passe.</li>
+     * <li>new FailingUponPendingStep() : stratégie qui veut que les étapes du
+     * test à PENDING fassent échouer le test.</li>
      * </ul>
+     * </li>
+     * </ul>
+     * </p>
      */
     @Override
     public Configuration configuration() {
@@ -79,7 +88,8 @@ public class AllStoriesTest extends JUnitStories {
         return new MostUsefulConfiguration() //
                 .useStoryLoader(new UTF8StoryLoader(embeddableClass)) //
                 .useStoryReporterBuilder(storyReporter) //
-                .usePendingStepStrategy(new FailingUponPendingStep()).useStepMonitor(xref.getStepMonitor());
+                .usePendingStepStrategy(new FailingUponPendingStep()) //
+                .useStepMonitor(xref.getStepMonitor());
     }
 
     /**
