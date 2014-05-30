@@ -12,9 +12,11 @@
 
     <artifactId>when-tests-and-code-separated</artifactId>
     <name>When tests and code separated</name>
+    <description>Module agrégateur.</description>
     <packaging>pom</packaging>
-    
+
     <modules>
         <module>calculator</module>
+        <module>calculator-acceptance-tests</module>
     </modules>
 </project>
