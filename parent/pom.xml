@@ -63,4 +63,22 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <organization>
+        <name>Wemanity</name>
+    </organization>
+    <developers>
+        <developer>
+            <id>xpn</id>
+            <name>Xavier Pigeon</name>
+            <email>xpigeon@wemanity.com</email>
+            <url>http://www.wemanity.com/</url>
+            <roles>
+                <role>Technical Leader</role>
+            </roles>
+            <organization>Wemanity</organization>
+            <organizationUrl>http://www.wemanity.com/</organizationUrl>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 </project>
