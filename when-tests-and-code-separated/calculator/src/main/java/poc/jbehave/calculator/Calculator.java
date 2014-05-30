@@ -28,6 +28,10 @@ public class Calculator {
         context.put(variable, value + existing);
     }
 
+    public void addToVariable(String variable, String variableToAdd) {
+        addToVariable(variable, getVariableValue(variableToAdd));
+    }
+
     public int getVariableValue(String variable) {
         return getVariableValueOrFail(variable);
     }

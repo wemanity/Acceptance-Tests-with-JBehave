@@ -66,10 +66,14 @@ public class CalculatorSteps {
         calculator.defineVariable(variable, value);
     }
 
-    @When("I add $value to $variable")
-    public void addValueToVariable(@Named("variable") String variable, @Named("value") int value) {
+    @When("I add $constant to $variable")
+    public void addValueOrVariableToVariable(@Named("constant") String constant, @Named("variable") String variable) {
         try {
-            calculator.addToVariable(variable, value);
+            if (constant.matches("\\d+")) {
+                calculator.addToVariable(variable, Integer.parseInt(constant));
+            } else {
+                calculator.addToVariable(variable, constant);
+            }
         } catch (Exception exception) {
             exceptions.add(exception);
         }

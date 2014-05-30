@@ -42,3 +42,11 @@ Scenario: Undefined variable displays error message
 
 When I add 5 to y
 Then the calculator should display the message 'Variable <y> is not defined!'
+
+Scenario: Variable can be added to an other variable
+
+Given a variable x with value 37
+Given a variable y with value 5
+When I add y to x
+Then x should equal to 42
+And the calculator should not be in error
