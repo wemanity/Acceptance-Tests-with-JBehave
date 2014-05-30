@@ -32,3 +32,8 @@ When I add 5 to x
 And I add 6 to x
 And I add 17 to x
 Then x should equal to 65
+
+Scenario: Undefined variable displays error message
+
+When I add 5 to y
+Then the calculator should display the message 'Variable <y> is not defined!'

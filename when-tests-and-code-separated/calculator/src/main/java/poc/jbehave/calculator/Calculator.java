@@ -36,7 +36,7 @@ public class Calculator {
         Integer existing = context.get(variable);
 
         if (existing == null) {
-            throw new IllegalStateException("Variable <" + variable + "> is not defined");
+            throw new IllegalStateException("Variable <" + variable + "> is not defined!");
         } else {
             return existing;
         }

@@ -4,7 +4,13 @@
 package poc.jbehave.calculator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.BeforeScenario;
@@ -44,10 +50,12 @@ import poc.jbehave.calculator.util.StepsDefinition;
 public class CalculatorSteps {
 
     private Calculator calculator;
+    private List<Exception> exceptions;
 
     @BeforeScenario
     public void inializeScenario() {
         calculator = new Calculator();
+        exceptions = new ArrayList<Exception>();
     }
 
     @AfterScenario
@@ -60,11 +68,29 @@ public class CalculatorSteps {
 
     @When("I add $value to $variable")
     public void addValueToVariable(@Named("variable") String variable, @Named("value") int value) {
-        calculator.addToVariable(variable, value);
+        try {
+            calculator.addToVariable(variable, value);
+        } catch (Exception exception) {
+            exceptions.add(exception);
+        }
     }
 
     @Then("$variable should equal to $expected")
     public void assertVariableEqualTo(String variable, int expectedValue) {
         assertThat(calculator.getVariableValue(variable), equalTo(expectedValue));
+    }
+
+    @Then("the calculator should display the message '$errorMessage'")
+    public void assertErrorMessageIsDisplayed(String errorMessage) {
+        assertThat("Not in error situation", exceptions, not(empty()));
+
+        boolean errorMessageFound = false;
+        for (Exception exception : exceptions) {
+            if (errorMessage.equals(exception.getMessage())) {
+                errorMessageFound = true;
+                break;
+            }
+        }
+        assertThat("Wrong error message", errorMessageFound, is(true));
     }
 }
