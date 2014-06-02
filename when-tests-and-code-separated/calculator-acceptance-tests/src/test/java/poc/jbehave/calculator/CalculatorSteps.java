@@ -3,11 +3,7 @@
  */
 package poc.jbehave.calculator;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
+import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,12 +77,12 @@ public class CalculatorSteps {
 
     @Then("$variable should equal to $expected")
     public void assertVariableEqualTo(String variable, int expectedValue) {
-        assertThat(calculator.getVariableValue(variable), equalTo(expectedValue));
+        assertThat(calculator.getVariableValue(variable)).isEqualTo(expectedValue);
     }
 
     @Then("the calculator should display the message '$errorMessage'")
     public void assertErrorMessageIsDisplayed(String errorMessage) {
-        assertThat("Not in error situation", exceptions, not(empty()));
+        assertThat(exceptions).isNotEmpty();
 
         boolean errorMessageFound = false;
         for (Exception exception : exceptions) {
@@ -95,11 +91,11 @@ public class CalculatorSteps {
                 break;
             }
         }
-        assertThat("Wrong error message", errorMessageFound, is(true));
+        assertThat(errorMessageFound).isTrue();
     }
 
     @Then("the calculator should not be in error")
     public void assertNoErrorMessageIsDisplayed() {
-        assertThat("Unexpected error", exceptions, empty());
+        assertThat(exceptions).isEmpty();
     }
 }

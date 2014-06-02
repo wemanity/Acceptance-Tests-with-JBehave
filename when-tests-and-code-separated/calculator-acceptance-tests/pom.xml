@@ -15,6 +15,7 @@
     <description>Tests d'acceptation du calculateur.</description>
 
     <dependencies>
+        <!-- Composant à tester -->
         <dependency>
             <groupId>poc.jbehave</groupId>
             <artifactId>calculator</artifactId>
@@ -35,6 +36,14 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>jbehave-junit-runner</artifactId>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~ FEST Fluent Assertions ~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
         </dependency>
     </dependencies>
 </project>

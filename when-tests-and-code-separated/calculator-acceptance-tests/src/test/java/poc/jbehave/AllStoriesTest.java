@@ -27,9 +27,15 @@ import poc.jbehave.calculator.plumbing.UTF8StoryLoader;
 import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 
 /**
+ * <p>
  * Configuration de l'environnement d'exécution des scénarii de test avec
- * JBehave.</br>On choisit JUnitReportingRunner comme lanceur JUnit, issu de
+ * JBehave. On choisit JUnitReportingRunner comme lanceur JUnit, issu de
  * jbehave-junit-runner.
+ * </p>
+ * <p>
+ * La classe {@link AllStoriesTest} peut être exécutée de la même manière qu'un
+ * quelconque test JUnit.
+ * </p>
  * 
  * @author Xavier Pigeon
  */

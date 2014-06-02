@@ -43,6 +43,9 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- ~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ JBehave ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~ -->
             <dependency>
                 <groupId>org.jbehave</groupId>
                 <artifactId>jbehave-spring</artifactId>
@@ -63,11 +66,22 @@
                 <artifactId>jbehave-junit-runner</artifactId>
                 <version>1.1.0</version>
             </dependency>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ FEST Fluent Assertions ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <dependency>
+                <groupId>org.easytesting</groupId>
+                <artifactId>fest-assert</artifactId>
+                <version>1.4</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <organization>
         <name>Wemanity</name>
+        <url>http://www.wemanity.com/</url>
     </organization>
     <developers>
         <developer>
