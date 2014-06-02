@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.calculator.util;
+package poc.jbehave.calculator.plumbing;
 
 import java.io.IOException;
 import java.io.InputStream;

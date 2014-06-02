@@ -19,7 +19,7 @@ import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
-import poc.jbehave.calculator.util.StepsDefinition;
+import poc.jbehave.calculator.plumbing.StepsDefinition;
 
 /**
  * <p>

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.calculator;
+package poc.jbehave;
 
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 import static org.jbehave.core.reporters.Format.CONSOLE;
@@ -22,8 +22,8 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.spring.SpringStepsFactory;
 import org.junit.runner.RunWith;
 
-import poc.jbehave.calculator.util.Springs;
-import poc.jbehave.calculator.util.UTF8StoryLoader;
+import poc.jbehave.calculator.plumbing.Springs;
+import poc.jbehave.calculator.plumbing.UTF8StoryLoader;
 import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 
 /**

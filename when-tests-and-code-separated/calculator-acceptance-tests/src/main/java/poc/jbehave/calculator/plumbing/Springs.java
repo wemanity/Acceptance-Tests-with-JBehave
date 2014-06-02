@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.calculator.util;
+package poc.jbehave.calculator.plumbing;
 
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

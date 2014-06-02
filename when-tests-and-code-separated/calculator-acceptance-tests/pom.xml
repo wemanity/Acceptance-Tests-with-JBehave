@@ -13,4 +13,28 @@
     <artifactId>calculator-acceptance-tests</artifactId>
     <name>Calculator Acceptance Tests</name>
     <description>Tests d'acceptation du calculateur.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>poc.jbehave</groupId>
+            <artifactId>calculator</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~JBehave~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>jbehave-junit-runner</artifactId>
+        </dependency>
+    </dependencies>
 </project>
