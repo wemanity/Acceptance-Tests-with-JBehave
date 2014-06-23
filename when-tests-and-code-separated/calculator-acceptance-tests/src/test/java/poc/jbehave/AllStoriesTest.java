@@ -44,7 +44,7 @@ public class AllStoriesTest extends JUnitStories {
 
     private static final String PATH_TO_BE_EXCLUDED = "**/fail/*";
     private static final String PATH_TO_BE_INCLUDED = "**/*.story";
-    private static final String BASE_PACKAGES = "poc.jbehave.calculator";
+    private static final String BASE_PACKAGES = "poc.jbehave.steps";
     private final CrossReference xref = new CrossReference();
 
     public AllStoriesTest() {
@@ -55,7 +55,7 @@ public class AllStoriesTest extends JUnitStories {
                 .doIgnoreFailureInStories(false) //
                 .doIgnoreFailureInView(true) //
                 .doVerboseFailures(true) //
-                .useThreads(2) //
+                .useThreads(2) // 1 par défaut
                 .useStoryTimeoutInSecs(6000);
     }
 
