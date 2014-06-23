@@ -5,9 +5,8 @@
 
     <parent>
         <groupId>poc.jbehave</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>jbehave-poc</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>when-tests-and-code-separated</artifactId>
