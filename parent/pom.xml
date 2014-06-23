@@ -76,6 +76,12 @@
                 <version>1.4</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>poc.jbehave</groupId>
+                <artifactId>logging-dependency</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
