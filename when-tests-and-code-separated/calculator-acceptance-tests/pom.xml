@@ -49,6 +49,7 @@
         <dependency>
             <groupId>poc.jbehave</groupId>
             <artifactId>logging-dependency</artifactId>
+            <type>pom</type>
         </dependency>
     </dependencies>
 </project>

@@ -14,4 +14,28 @@
     <version>1.0-SNAPSHOT</version>
     <name>French Acceptance Tests</name>
     <description>Ce module montre comment implémenter des tests avec JBehave en Français.</description>
+
+    <dependencies>
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ JBehave ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>jbehave-junit-runner</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>poc.jbehave</groupId>
+            <artifactId>logging-dependency</artifactId>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
 </project>
