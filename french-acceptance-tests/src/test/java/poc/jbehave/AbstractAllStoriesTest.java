@@ -88,7 +88,7 @@ public abstract class AbstractAllStoriesTest extends JUnitStories {
         Class<? extends Embeddable> embeddableClass = this.getClass();
         URL codeLocation = codeLocationFromClass(embeddableClass);
 
-        Keywords keywords = new LocalizedKeywords(locale());
+        Keywords keywords = keywords();
 
         StoryReporterBuilder storyReporter = new StoryReporterBuilder() //
                 .withCodeLocation(codeLocation) //
@@ -143,6 +143,20 @@ public abstract class AbstractAllStoriesTest extends JUnitStories {
     @Override
     public InjectableStepsFactory stepsFactory() {
         return new SpringStepsFactory(configuration(), Springs.createAnnotatedContextFromBasePackages(BASE_PACKAGES));
+    }
+
+    /**
+     * <p>
+     * Implémentation par défaut pour la fourniture des mots-clés de JBehave.
+     * </p>
+     * <p>
+     * À surcharger si un bundle personnalisé est choisi.
+     * </p>
+     * 
+     * @return un objet {@link Keywords}
+     */
+    protected Keywords keywords() {
+        return new LocalizedKeywords(locale());
     }
 
     /**

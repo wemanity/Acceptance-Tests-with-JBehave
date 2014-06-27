@@ -1,5 +1,58 @@
-Scénario: Un scénario quelconque.
+Histoire utilisateur:
+En tant que Némo
+Je peux faire quelque chose
+Afin d'en tirer des bénéfices
+
+Scénario: Avec le bundle fr fourni par JBehave, ou le bundle personnalisé.
 
 Etant donné que mon contexte est connu
 Quand certains événements surviennent
+Alors j'obtiens les résultats attendus
+
+Scénario: Avec l'alias "Étant donné que" fourni par un bundle personnalisé.
+
+Étant donné que mon contexte est connu
+Quand les événements voulus surviennent
+Alors j'obtiens les résultats escomptés
+
+Scénario: Avec l'alias "Etant donné qu'" fourni par un bundle personnalisé.
+
+Etant donné qu' un contexte est défini
+Quand les événements voulus surviennent
+Alors j'obtiens les résultats escomptés
+
+Scénario: Avec l'alias "Étant donné que" fourni par un bundle personnalisé.
+
+Étant donné que mon contexte est connu
+Quand certains événements surviennent
+Alors j'obtiens les résultats attendus
+
+Scénario: Avec l'alias "Étant donné qu'" fourni par un bundle personnalisé.
+
+Étant donné qu' un contexte est défini
+Quand les événements voulus surviennent
+Alors j'obtiens les résultats escomptés
+
+Scénario: Avec l'alias "Etant donné" fourni par un bundle personnalisé.
+
+Etant donné ce contexte
+Quand les événements voulus surviennent
+Alors j'obtiens les résultats escomptés
+
+Scénario: Avec l'alias "Étant donné" fourni par un bundle personnalisé.
+
+Étant donné ce contexte
+Quand les événements voulus surviennent
+Alors j'obtiens les résultats escomptés
+
+Scénario: Avec l'alias "Lorsque" fourni par un bundle personnalisé.
+
+Etant donné que mon contexte est connu
+Lorsque certains événements surviennent
+Alors j'obtiens les résultats attendus
+
+Scénario: Avec l'alias "Lorsqu'" fourni par un bundle personnalisé.
+
+Etant donné que mon contexte est connu
+Lorsqu' un événement survient
 Alors j'obtiens les résultats attendus
