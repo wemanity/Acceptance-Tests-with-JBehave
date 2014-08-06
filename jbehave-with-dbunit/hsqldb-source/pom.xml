@@ -12,4 +12,76 @@
 
     <artifactId>hsqldb-source</artifactId>
     <name>HSQLDB Source</name>
+    <description>Base de données mémoire embarquée.</description>
+    
+    <properties>
+        <springframework.version>4.0.6.RELEASE</springframework.version>
+    </properties>
+
+    <dependencies>
+        <!-- Connecteur HSQLDB -->
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Spring ~~~ -->
+        <!-- ~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Logging ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>logging-dependency</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Testing ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+        </dependency>
+    </dependencies>
 </project>
