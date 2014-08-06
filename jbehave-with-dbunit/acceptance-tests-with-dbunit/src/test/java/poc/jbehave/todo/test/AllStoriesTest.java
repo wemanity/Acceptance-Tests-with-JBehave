@@ -44,7 +44,7 @@ public class AllStoriesTest extends JUnitStories {
 
     private static final String PATH_TO_BE_EXCLUDED = "**/fail/*";
     private static final String PATH_TO_BE_INCLUDED = "**/*.story";
-    private static final String BASE_PACKAGES = "poc.jbehave.todo.test.step";
+    private static final String BASE_PACKAGES = "poc.jbehave.todo";
     private final CrossReference xref = new CrossReference();
 
     public AllStoriesTest() {

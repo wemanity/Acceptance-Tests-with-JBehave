@@ -6,8 +6,10 @@ package poc.jbehave.todo.test.step;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import poc.jbehave.plumbing.StepsDefinition;
+import poc.jbehave.todo.service.api.ITodoService;
 
 /**
  * Définition des étapes JBehave.
@@ -16,6 +18,9 @@ import poc.jbehave.plumbing.StepsDefinition;
  */
 @StepsDefinition
 public class TodoSteps {
+
+    @Autowired
+    private ITodoService todoService;
 
     @Given("some todos available")
     public void someTodosAvailable() {

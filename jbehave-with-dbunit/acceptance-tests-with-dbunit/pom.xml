@@ -13,6 +13,10 @@
     <artifactId>acceptance-tests-with-dbunit</artifactId>
     <name>Acceptance Tests with DbUnit</name>
 
+    <properties>
+        <springframework.version>4.0.6.RELEASE</springframework.version>
+    </properties>
+
     <dependencies>
         <!-- ~~~~~~~~~~~~~~~ -->
         <!-- ~~~ JBehave ~~~ -->
@@ -20,6 +24,16 @@
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-spring</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-test</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jbehave</groupId>
@@ -30,6 +44,17 @@
             <artifactId>jbehave-junit-runner</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
         <!-- ~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Assertions ~~~ -->
         <!-- ~~~~~~~~~~~~~~~~~~ -->
@@ -37,7 +62,7 @@
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert</artifactId>
         </dependency>
-        
+
         <!-- ~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Logging ~~~ -->
         <!-- ~~~~~~~~~~~~~~~ -->
@@ -45,6 +70,15 @@
             <groupId>poc.jbehave</groupId>
             <artifactId>logging-dependency</artifactId>
             <type>pom</type>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Todo Dependencies ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>application-with-db</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

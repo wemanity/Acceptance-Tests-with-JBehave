@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
     xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>poc.jbehave</groupId>
         <artifactId>jbehave-with-dbunit</artifactId>
@@ -12,4 +12,45 @@
 
     <artifactId>application-with-db</artifactId>
     <name>Application with DB</name>
+
+    <properties>
+        <springframework.version>4.0.6.RELEASE</springframework.version>
+    </properties>
+
+    <dependencies>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Spring Framework ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Testing ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+        </dependency>
+    </dependencies>
 </project>
