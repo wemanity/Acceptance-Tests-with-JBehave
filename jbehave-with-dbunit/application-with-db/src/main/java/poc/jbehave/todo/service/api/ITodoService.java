@@ -1,7 +1,5 @@
 package poc.jbehave.todo.service.api;
 
-import java.util.List;
-
 import poc.jbehave.todo.service.domain.Todo;
 
 /**
@@ -16,5 +14,5 @@ public interface ITodoService {
      * 
      * @return une liste de {@link Todo}
      */
-    List<Todo> getAllTodos();
+    AllTodosDto getAllTodos();
 }
