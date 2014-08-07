@@ -17,6 +17,15 @@ public class AllTodosDto {
     private List<Todo> todos;
 
     /**
+     * Constructeur.
+     * 
+     * @param todos une liste de todos
+     */
+    public AllTodosDto(List<Todo> todos) {
+        this.todos = todos;
+    }
+
+    /**
      * Getter for the field todos.
      * 
      * @return the todos

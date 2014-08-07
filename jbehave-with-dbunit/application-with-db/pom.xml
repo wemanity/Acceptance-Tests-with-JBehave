@@ -11,7 +11,8 @@
     </parent>
 
     <artifactId>application-with-db</artifactId>
-    <name>Application with DB</name>
+    <name>Application with Database</name>
+    <description>Prototype d'application qui gère des listes de todos.</description>
 
     <properties>
         <springframework.version>4.0.6.RELEASE</springframework.version>
@@ -33,6 +34,12 @@
             <version>${springframework.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.6.2.RELEASE</version>
+        </dependency>
+
         <!-- ~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Testing ~~~ -->
         <!-- ~~~~~~~~~~~~~~~ -->
@@ -51,6 +58,21 @@
         <dependency>
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.2</version>
+        </dependency>
+        
+        <!-- ~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Utilitaires ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>17.0</version>
         </dependency>
     </dependencies>
 </project>

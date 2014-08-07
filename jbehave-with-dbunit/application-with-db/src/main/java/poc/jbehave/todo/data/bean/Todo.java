@@ -1,44 +1,28 @@
 /**
  * 
  */
-package poc.jbehave.todo.service.domain;
+package poc.jbehave.todo.data.bean;
 
 /**
- * Un élément Todo.
+ * Todo.
  * 
  * @author Xavier Pigeon
  */
 public class Todo {
 
-    private Long id;
+    private long id;
     private String label;
-    private Boolean done;
+    private boolean done;
 
     /**
      * @param id
      * @param label
+     * @param done
      */
-    public Todo(Long id, String label) {
+    public Todo(long id, String label, boolean done) {
         this.id = id;
         this.label = label;
-        done = false;
-    }
-
-    /**
-     * @param id
-     * @param label
-     */
-    public Todo(Long id, String label, Boolean done) {
-        this(id, label);
         this.done = done;
-    }
-
-    /**
-     * 
-     * @param todo
-     */
-    public Todo(poc.jbehave.todo.data.bean.Todo todo) {
-        this(todo.getId(), todo.getLabel(), todo.isDone());
     }
 
     /**
@@ -46,7 +30,7 @@ public class Todo {
      * 
      * @return the id
      */
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -55,7 +39,7 @@ public class Todo {
      * 
      * @param id the id to set
      */
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -82,7 +66,7 @@ public class Todo {
      * 
      * @return the done
      */
-    public Boolean getDone() {
+    public boolean isDone() {
         return done;
     }
 
@@ -91,7 +75,7 @@ public class Todo {
      * 
      * @param done the done to set
      */
-    public void setDone(Boolean done) {
+    public void setDone(boolean done) {
         this.done = done;
     }
 }

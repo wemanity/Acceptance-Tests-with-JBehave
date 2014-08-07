@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.todo.spring;
+package poc.jbehave.todo.service.config;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -16,28 +16,27 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 /**
  * <p>
- * Test Case for {@link TodoApplicationSpringConfig}.
+ * Test Case for {@link ServiceLayerConfig}.
  * </p>
  * <p>
  * L'objectif est de tester la configuration de Spring.
  * </p>
  * 
  * @author Xavier Pigeon
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class TodoApplicationSpringConfigTest {
+public class ServiceLayerConfigTest {
 
     @Autowired
-    private TodoApplicationSpringConfig todoApplicationSpringConfig;
+    private ServiceLayerConfig serviceLayerConfig;
 
     @Configuration
-    @ComponentScan(basePackages = { "poc.jbehave.todo" })
+    @ComponentScan(basePackages = "poc.jbehave.todo.service")
     static class Config {}
 
     @Test
     public void should_configure_spring() {
-        assertThat(todoApplicationSpringConfig).isNotNull();
+        assertThat(serviceLayerConfig).isNotNull();
     }
 }
