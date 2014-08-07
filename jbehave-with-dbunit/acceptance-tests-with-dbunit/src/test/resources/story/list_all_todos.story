@@ -1,5 +1,4 @@
-User Story:
-In order to list all todos
+Narrative:
 As a user
 I want to list all my todos
 So that I compare them
