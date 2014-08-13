@@ -4,7 +4,6 @@
 package poc.jbehave.todo.data.repository;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
@@ -89,8 +88,13 @@ public class TodoRepositoryTest {
      * {@link org.springframework.data.repository.CrudRepository#save(S)}.
      */
     @Test
+    @ExpectedDataSet("/xml/saveTodoExpectedDataSet.xml")
     public void testSaveS() {
-        fail("Not yet implemented");
+        // GIVEN
+        Todo todo = new Todo(5L, "Refactoring.", false);
+
+        // WHEN
+        todoRepository.save(todo);
     }
 
     /**
@@ -99,8 +103,11 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
+    @ExpectedDataSet("/xml/saveIterableExpectedDataSet.xml")
     public void testSaveIterableOfS() {
-        fail("Not yet implemented");
+        todoRepository.save(Arrays.asList( //
+                new Todo(5L, "Documenter le code.", true), //
+                new Todo(6L, "Ajouter les package-info.", true)));
     }
 
     /**
