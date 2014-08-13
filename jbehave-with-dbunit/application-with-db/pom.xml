@@ -75,6 +75,19 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- ~~~~~~~~~~~~~~ -->
+        <!-- ~~~ DbUnit ~~~ -->
+        <!-- ~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.excilys.ebi.spring-dbunit</groupId>
+            <artifactId>spring-dbunit-test</artifactId>
+        </dependency>
+
         <!-- ~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Testing ~~~ -->
         <!-- ~~~~~~~~~~~~~~~ -->
