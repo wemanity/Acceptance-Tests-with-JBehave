@@ -27,6 +27,7 @@ import poc.jbehave.todo.data.config.DataAccessLayerConfig;
 
 import com.excilys.ebi.spring.dbunit.test.DataSet;
 import com.excilys.ebi.spring.dbunit.test.DataSetTestExecutionListener;
+import com.excilys.ebi.spring.dbunit.test.ExpectedDataSet;
 import com.google.common.collect.Lists;
 
 /**
@@ -178,8 +179,9 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
+    @ExpectedDataSet()
     public void testDeleteID() {
-        fail("Not yet implemented");
+        todoRepository.delete(1L);
     }
 
     /**
