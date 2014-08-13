@@ -179,7 +179,7 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
-    @ExpectedDataSet()
+    @ExpectedDataSet("/xml/deleteIdExpectedDataSet.xml")
     public void testDeleteID() {
         todoRepository.delete(1L);
     }
