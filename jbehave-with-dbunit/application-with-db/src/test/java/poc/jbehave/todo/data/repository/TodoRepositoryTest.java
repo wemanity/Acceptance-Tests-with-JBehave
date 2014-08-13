@@ -61,7 +61,7 @@ import com.google.common.collect.Lists;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DataSetTestExecutionListener.class })
-@DataSet("todoDataSet.xml")
+@DataSet("/xml/todoDataSet.xml")
 public class TodoRepositoryTest {
 
     @Autowired
