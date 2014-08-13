@@ -190,8 +190,9 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
+    @ExpectedDataSet("/xml/deleteTExpectedDataSet.xml")
     public void testDeleteT() {
-        fail("Not yet implemented");
+        todoRepository.delete(new Todo(2L));
     }
 
     /**
@@ -200,8 +201,10 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
+    @ExpectedDataSet("/xml/deleteIterableExpectedDataSet.xml")
     public void testDeleteIterableOfQextendsT() {
-        fail("Not yet implemented");
+        // WHEN
+        todoRepository.delete(Arrays.asList(new Todo(2L), new Todo(4L)));
     }
 
     /**
@@ -209,7 +212,8 @@ public class TodoRepositoryTest {
      * {@link org.springframework.data.repository.CrudRepository#deleteAll()}.
      */
     @Test
+    @ExpectedDataSet("/xml/deleteAllExpectedDataSet.xml")
     public void testDeleteAll() {
-        fail("Not yet implemented");
+        todoRepository.deleteAll();
     }
 }

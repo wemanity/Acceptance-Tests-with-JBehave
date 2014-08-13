@@ -36,6 +36,29 @@ public class Todo {
      * Constructeur.
      * 
      * @param id l'identifiant
+     */
+    public Todo(Long id) {
+        this.id = id;
+        label = "";
+        done = false;
+    }
+
+    /**
+     * Constructeur.
+     * 
+     * @param id l'identifiant
+     * @param label le libellé
+     */
+    public Todo(Long id, String label) {
+        this.id = id;
+        this.label = label;
+        done = false;
+    }
+
+    /**
+     * Constructeur.
+     * 
+     * @param id l'identifiant
      * @param label le libellé
      * @param done le statut de complétude
      */
