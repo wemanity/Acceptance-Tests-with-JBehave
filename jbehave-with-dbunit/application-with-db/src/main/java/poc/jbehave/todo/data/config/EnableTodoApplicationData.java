@@ -12,5 +12,5 @@ import org.springframework.context.annotation.Import;
  * @author Xavier Pigeon
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ DataAccessLayerConfig.class, InfrastructureConfig.class })
+@Import(DataAccessLayerConfig.class)
 public @interface EnableTodoApplicationData {}

@@ -1,4 +1,4 @@
-package poc.jbehave.data.config;
+package poc.jbehave.todo.data.config.datasource;
 
 import java.util.Properties;
 
@@ -20,17 +20,18 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
  */
 @Configuration
 @PropertySource("classpath:datasource.properties")
-public class HsqldbDataConfig {
+public class HsqldbDataSourceConfig {
 
     private static final String HSQLDB_NAME = "hsqldb.name";
-    private static final String HSQLDB_DEV_DATA = "hsqldb.data";
+    private static final String HSQLDB_DATA = "hsqldb.data";
     private static final String HSQLDB_SCHEMA = "hsqldb.schema";
 
     @Autowired
     private Environment env;
 
     /**
-     * Construire une base de données embarquée.
+     * Déclarer une {@link DataSource} dans le contexte de Spring, en
+     * construisant une base de données embarquée.
      * 
      * @param hibernateProperties les propriétés pour la création de la base de
      *            données
@@ -42,7 +43,7 @@ public class HsqldbDataConfig {
                 .setName(env.getProperty(HSQLDB_NAME)) //
                 .setType(EmbeddedDatabaseType.HSQL) //
                 .addScript(env.getProperty(HSQLDB_SCHEMA)) //
-                .addScript(env.getProperty(HSQLDB_DEV_DATA)) //
+                .addScript(env.getProperty(HSQLDB_DATA)) //
                 .build();
     }
 }

@@ -3,23 +3,43 @@
  */
 package poc.jbehave.todo.data.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.google.common.base.Objects;
+
 /**
  * Todo.
  * 
  * @author Xavier Pigeon
  */
+@Entity(name = "todo")
 public class Todo {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "label")
     private String label;
+    @Column(name = "done")
     private boolean done;
 
     /**
-     * @param id
-     * @param label
-     * @param done
+     * Constructeur par défaut.
      */
-    public Todo(long id, String label, boolean done) {
+    public Todo() {}
+
+    /**
+     * Constructeur.
+     * 
+     * @param id l'identifiant
+     * @param label le libellé
+     * @param done le statut de complétude
+     */
+    public Todo(Long id, String label, boolean done) {
         this.id = id;
         this.label = label;
         this.done = done;
@@ -30,7 +50,7 @@ public class Todo {
      * 
      * @return the id
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -77,5 +97,17 @@ public class Todo {
      */
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(Todo.class) //
+                .add("id", id) //
+                .add("label", label) //
+                .add("done", done) //
+                .toString();
     }
 }

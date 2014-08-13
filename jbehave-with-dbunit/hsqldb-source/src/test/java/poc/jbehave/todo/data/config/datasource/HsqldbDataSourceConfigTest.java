@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.data.config;
+package poc.jbehave.todo.data.config.datasource;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -11,28 +11,24 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 /**
- * Test Case for {@link HsqldbDataConfig}.
+ * Test Case for {@link HsqldbDataSourceConfig}.
  * 
  * @author Xavier Pigeon
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class HsqldbDataConfigTest {
-
-    @Configuration
-    @ComponentScan(basePackages = { "poc.jbehave.data.config" })
-    static class Config {}
+public class HsqldbDataSourceConfigTest {
 
     @Autowired
-    private HsqldbDataConfig hsqldbDataConfig;
+    private HsqldbDataSourceConfig hsqldbDataSourceConfig;
     @Autowired
     private DataSource dataSource;
 
@@ -41,9 +37,13 @@ public class HsqldbDataConfigTest {
         ((EmbeddedDatabase) dataSource).shutdown();
     }
 
+    @Configuration
+    @Import(HsqldbDataSourceConfig.class)
+    static class Config {}
+
     /**
      * Test method for
-     * {@link poc.jbehave.data.config.HsqldbDataConfig#dataSource(java.util.Properties)}
+     * {@link poc.jbehave.todo.data.config.datasource.HsqldbDataSourceConfig#dataSource(java.util.Properties)}
      * .
      * 
      * @throws ClassNotFoundException
@@ -58,6 +58,7 @@ public class HsqldbDataConfigTest {
         // IoC by Spring Framework
 
         // THEN
+        assertThat(hsqldbDataSourceConfig).isNotNull();
         assertThat(dataSource).isNotNull();
         assertThat(dataSource).isInstanceOf(expectedClazz);
     }

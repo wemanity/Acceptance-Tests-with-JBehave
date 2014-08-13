@@ -3,6 +3,9 @@
  */
 package poc.jbehave.todo.service.business;
 
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.Arrays;
@@ -53,13 +56,13 @@ public class TodoServiceTest {
     @Test
     public void should_get_todos() {
         // GIVEN
-        EasyMock.expect(todoRepository.findAll()) //
+        expect(todoRepository.findAll()) //
                 .andReturn(Arrays.asList( //
-                        new Todo(1, "todo 1", false), //
-                        new Todo(2, "todo 2", true), //
-                        new Todo(3, "todo 3", false))) //
+                        new Todo(1L, "todo 1", false), //
+                        new Todo(2L, "todo 2", true), //
+                        new Todo(3L, "todo 3", false))) //
                 .once();
-        EasyMock.replay(todoRepository);
+        replay(todoRepository);
 
         // WHEN
         AllTodosDto allTodosDto = todoService.getAllTodos();
@@ -67,6 +70,6 @@ public class TodoServiceTest {
         // THEN
         assertThat(allTodosDto).isNotNull();
         assertThat(allTodosDto.getTodos()).isNotEmpty();
-        EasyMock.verify(todoRepository);
+        verify(todoRepository);
     }
 }

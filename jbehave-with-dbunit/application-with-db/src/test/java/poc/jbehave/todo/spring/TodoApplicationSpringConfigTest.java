@@ -8,8 +8,8 @@ import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -23,7 +23,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
  * </p>
  * 
  * @author Xavier Pigeon
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
@@ -33,7 +32,7 @@ public class TodoApplicationSpringConfigTest {
     private TodoApplicationSpringConfig todoApplicationSpringConfig;
 
     @Configuration
-    @ComponentScan(basePackages = { "poc.jbehave.todo" })
+    @Import(TodoApplicationSpringConfig.class)
     static class Config {}
 
     @Test

@@ -13,7 +13,7 @@
     <artifactId>hsqldb-source</artifactId>
     <name>HSQLDB Source</name>
     <description>Base de données mémoire embarquée.</description>
-    
+
     <properties>
         <springframework.version>4.0.6.RELEASE</springframework.version>
     </properties>
@@ -46,19 +46,12 @@
             <artifactId>spring-context</artifactId>
             <version>${springframework.version}</version>
             <exclusions>
-                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <!-- Exclure Commons Logging à la faveur de SLF4j. -->
                 <exclusion>
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${springframework.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- ~~~~~~~~~~~~~~~ -->
@@ -77,6 +70,13 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
