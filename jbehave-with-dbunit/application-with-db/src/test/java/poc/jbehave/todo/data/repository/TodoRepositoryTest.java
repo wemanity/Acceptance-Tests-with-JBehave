@@ -109,6 +109,7 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
+    @ExpectedDataSet("/xml/todoDataSet.xml")
     public void testFindOne() {
         // WHEN
         Todo todo = todoRepository.findOne(2L);
@@ -125,6 +126,7 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
+    @ExpectedDataSet("/xml/todoDataSet.xml")
     public void testExists() {
         // WHEN
         boolean exists = todoRepository.exists(5L);
@@ -138,6 +140,7 @@ public class TodoRepositoryTest {
      * {@link org.springframework.data.repository.CrudRepository#findAll()}.
      */
     @Test
+    @ExpectedDataSet("/xml/todoDataSet.xml")
     public void testFindAll() {
         // WHEN
         List<Todo> todos = Lists.newArrayList(todoRepository.findAll());
@@ -152,6 +155,7 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
+    @ExpectedDataSet("/xml/todoDataSet.xml")
     public void testFindAllIterableOfID() {
         // WHEN
         Iterable<Todo> todos = todoRepository.findAll(Arrays.asList(new Long(2), new Long(4)));
@@ -165,6 +169,7 @@ public class TodoRepositoryTest {
      * {@link org.springframework.data.repository.CrudRepository#count()}.
      */
     @Test
+    @ExpectedDataSet("/xml/todoDataSet.xml")
     public void testCount() {
         // WHEN
         long count = todoRepository.count();
