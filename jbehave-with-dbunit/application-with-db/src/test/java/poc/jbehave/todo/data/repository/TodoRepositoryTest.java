@@ -17,9 +17,7 @@ import javax.sql.DataSource;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,9 +80,6 @@ public class TodoRepositoryTest {
     @Autowired
     private DataSource dataSource;
 
-    @Rule
-    public TestName testName = new TestName();
-
     @Configuration
     @Import(DataAccessLayerConfig.class)
     static class Config {}
@@ -94,45 +89,21 @@ public class TodoRepositoryTest {
      */
     @Before
     public void setUp() throws Exception {
-        LOGGER.debug("<<<<<<< SET UP: {} >>>>>>", testName.getMethodName());
-        displayDbState(dataSource.getConnection());
-        resetSqlAutoIncrementColumn();
-        displayDbState(dataSource.getConnection());
+        Connection jdbcConnection = dataSource.getConnection();
+        resetSqlAutoIncrementColumn(jdbcConnection);
+        jdbcConnection.close();
     }
 
-    private void resetSqlAutoIncrementColumn() {
-        Connection jdbcConnection = null;
-
+    private void resetSqlAutoIncrementColumn(Connection connection) {
         try {
-            jdbcConnection = dataSource.getConnection();
-            // équivalent à : Connection jdbcConnection =
-            // DriverManager.getConnection("jdbc:hsqldb:mem:poc-db", "sa", "");
-            // Cf. les logs :
-            // org.springframework.jdbc.datasource.SimpleDriverDataSource -
-            // Creating
-            // new JDBC Driver Connection to [jdbc:hsqldb:mem:poc-db]
-
-            Statement restartStatement = jdbcConnection.createStatement();
-            Long idMax = idMax(jdbcConnection);
-            // Avec MySQL :
-            // restartStatement.executeQuery("ALTER TABLE todo AUTO_INCREMENT=1;");
-            // Avec HSQLDB :
+            Statement restartStatement = connection.createStatement();
+            Long idMax = idMax(connection);
             restartStatement.executeQuery("ALTER TABLE todo ALTER COLUMN id RESTART WITH " + (idMax + 1) + ";");
             restartStatement.close();
-
-            jdbcConnection.close();
         } catch (SQLException e) {
             LOGGER.error("{}", e.getMessage());
-            fail("Method resetIdentity failed!");
+            fail("Method resetSqlAutoIncrementColumn failed!");
         }
-    }
-
-    private void displayDbState(Connection connection) throws SQLException {
-        // La fonction IDENTITY() renvoie la valeur auto-incrément d'une colonne
-        // relative à la session courante seulement, en partant de 0.
-        LOGGER.debug("IDENTITY = {}", actualIdentity(connection));
-        LOGGER.debug("MAX ID = {}", idMax(connection));
-        LOGGER.debug("ID COUNT = {}", idCount(connection));
     }
 
     private Long idMax(Connection connection) throws SQLException {
@@ -145,34 +116,11 @@ public class TodoRepositoryTest {
         return idMax;
     }
 
-    private Long idCount(Connection connection) throws SQLException {
-        Statement idCountStatement = connection.createStatement();
-        ResultSet resultSet = idCountStatement.executeQuery("SELECT count(DISTINCT id) FROM todo;");
-        resultSet.next();
-        Long idCount = resultSet.getLong(1);
-        idCountStatement.close();
-
-        return idCount;
-    }
-
-    private Long actualIdentity(Connection connection) throws SQLException {
-        Statement identityStatement = connection.createStatement();
-        ResultSet resultSet = identityStatement.executeQuery("CALL IDENTITY();");
-        resultSet.next();
-        Long identity = resultSet.getLong(1);
-        identityStatement.close();
-
-        return identity;
-    }
-
     /**
      * @throws java.lang.Exception
      */
     @After
-    public void tearDown() throws Exception {
-        displayDbState(dataSource.getConnection());
-        LOGGER.debug("<<<<<<<<<<<<<<< TEAR DOWN: {} >>>>>>>>>>>>>>", testName.getMethodName());
-    }
+    public void tearDown() throws Exception {}
 
     /**
      * Test method for
@@ -181,7 +129,7 @@ public class TodoRepositoryTest {
      * @throws SQLException
      */
     @Test
-    @ExpectedDataSet("/xml/saveTodoExpectedDataSet.xml")
+    @ExpectedDataSet("/xml/saveSExpectedDataSet.xml")
     public void testSaveS() throws SQLException {
         // GIVEN
         Todo todo = new Todo(5L, "Refactoring.", false);
@@ -196,7 +144,7 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/saveIterableExpectedDataSet.xml")
+    @ExpectedDataSet("/xml/saveIterableOfSExpectedDataSet.xml")
     public void testSaveIterableOfS() {
         todoRepository.save(Arrays.asList( //
                 new Todo(5L, "Documenter le code.", true), //
@@ -306,7 +254,7 @@ public class TodoRepositoryTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/deleteIterableExpectedDataSet.xml")
+    @ExpectedDataSet("/xml/deleteIterableOfQextendsTExpectedDataSet.xml")
     public void testDeleteIterableOfQextendsT() {
         // WHEN
         todoRepository.delete(Arrays.asList(new Todo(2L), new Todo(4L)));

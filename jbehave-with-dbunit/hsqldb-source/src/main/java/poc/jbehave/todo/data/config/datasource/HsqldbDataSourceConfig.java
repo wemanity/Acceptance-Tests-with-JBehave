@@ -43,7 +43,7 @@ public class HsqldbDataSourceConfig {
                 .setName(env.getProperty(HSQLDB_NAME)) //
                 .setType(EmbeddedDatabaseType.HSQL) //
                 .addScript(env.getProperty(HSQLDB_SCHEMA)) //
-                // .addScript(env.getProperty(HSQLDB_DATA)) //
+                .addScript(env.getProperty(HSQLDB_DATA)) //
                 .build();
     }
 }

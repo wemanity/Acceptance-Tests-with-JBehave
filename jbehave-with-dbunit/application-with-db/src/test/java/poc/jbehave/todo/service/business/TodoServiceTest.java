@@ -40,7 +40,7 @@ public class TodoServiceTest {
     private TodoRepository todoRepository;
 
     @Configuration
-    @ComponentScan(basePackages = "poc.jbehave.todo.service")
+    @ComponentScan(basePackages = "poc.jbehave.todo.service.business")
     static class Config {
 
         @Bean
