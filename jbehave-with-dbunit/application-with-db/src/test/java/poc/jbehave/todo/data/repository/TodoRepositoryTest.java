@@ -4,14 +4,25 @@
 package poc.jbehave.todo.data.repository;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -64,8 +75,15 @@ import com.google.common.collect.Lists;
 @DataSet("/xml/todoDataSet.xml")
 public class TodoRepositoryTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositoryTest.class);
+
     @Autowired
     private TodoRepository todoRepository;
+    @Autowired
+    private DataSource dataSource;
+
+    @Rule
+    public TestName testName = new TestName();
 
     @Configuration
     @Import(DataAccessLayerConfig.class)
@@ -75,21 +93,96 @@ public class TodoRepositoryTest {
      * @throws java.lang.Exception
      */
     @Before
-    public void setUp() throws Exception {}
+    public void setUp() throws Exception {
+        LOGGER.debug("<<<<<<< SET UP: {} >>>>>>", testName.getMethodName());
+        displayDbState(dataSource.getConnection());
+        resetSqlAutoIncrementColumn();
+        displayDbState(dataSource.getConnection());
+    }
+
+    private void resetSqlAutoIncrementColumn() {
+        Connection jdbcConnection = null;
+
+        try {
+            jdbcConnection = dataSource.getConnection();
+            // équivalent à : Connection jdbcConnection =
+            // DriverManager.getConnection("jdbc:hsqldb:mem:poc-db", "sa", "");
+            // Cf. les logs :
+            // org.springframework.jdbc.datasource.SimpleDriverDataSource -
+            // Creating
+            // new JDBC Driver Connection to [jdbc:hsqldb:mem:poc-db]
+
+            Statement restartStatement = jdbcConnection.createStatement();
+            Long idMax = idMax(jdbcConnection);
+            // Avec MySQL :
+            // restartStatement.executeQuery("ALTER TABLE todo AUTO_INCREMENT=1;");
+            // Avec HSQLDB :
+            restartStatement.executeQuery("ALTER TABLE todo ALTER COLUMN id RESTART WITH " + (idMax + 1) + ";");
+            restartStatement.close();
+
+            jdbcConnection.close();
+        } catch (SQLException e) {
+            LOGGER.error("{}", e.getMessage());
+            fail("Method resetIdentity failed!");
+        }
+    }
+
+    private void displayDbState(Connection connection) throws SQLException {
+        // La fonction IDENTITY() renvoie la valeur auto-incrément d'une colonne
+        // relative à la session courante seulement, en partant de 0.
+        LOGGER.debug("IDENTITY = {}", actualIdentity(connection));
+        LOGGER.debug("MAX ID = {}", idMax(connection));
+        LOGGER.debug("ID COUNT = {}", idCount(connection));
+    }
+
+    private Long idMax(Connection connection) throws SQLException {
+        Statement maxIdStatement = connection.createStatement();
+        ResultSet resultSet = maxIdStatement.executeQuery("SELECT max(id) FROM todo;");
+        resultSet.next();
+        Long idMax = resultSet.getLong(1);
+        maxIdStatement.close();
+
+        return idMax;
+    }
+
+    private Long idCount(Connection connection) throws SQLException {
+        Statement idCountStatement = connection.createStatement();
+        ResultSet resultSet = idCountStatement.executeQuery("SELECT count(DISTINCT id) FROM todo;");
+        resultSet.next();
+        Long idCount = resultSet.getLong(1);
+        idCountStatement.close();
+
+        return idCount;
+    }
+
+    private Long actualIdentity(Connection connection) throws SQLException {
+        Statement identityStatement = connection.createStatement();
+        ResultSet resultSet = identityStatement.executeQuery("CALL IDENTITY();");
+        resultSet.next();
+        Long identity = resultSet.getLong(1);
+        identityStatement.close();
+
+        return identity;
+    }
 
     /**
      * @throws java.lang.Exception
      */
     @After
-    public void tearDown() throws Exception {}
+    public void tearDown() throws Exception {
+        displayDbState(dataSource.getConnection());
+        LOGGER.debug("<<<<<<<<<<<<<<< TEAR DOWN: {} >>>>>>>>>>>>>>", testName.getMethodName());
+    }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#save(S)}.
+     * 
+     * @throws SQLException
      */
     @Test
     @ExpectedDataSet("/xml/saveTodoExpectedDataSet.xml")
-    public void testSaveS() {
+    public void testSaveS() throws SQLException {
         // GIVEN
         Todo todo = new Todo(5L, "Refactoring.", false);
 
