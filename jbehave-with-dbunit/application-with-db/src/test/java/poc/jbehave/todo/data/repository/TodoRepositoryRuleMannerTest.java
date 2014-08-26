@@ -4,23 +4,18 @@
 package poc.jbehave.todo.data.repository;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,6 +26,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import poc.jbehave.todo.data.bean.Todo;
 import poc.jbehave.todo.data.config.DataAccessLayerConfig;
+import poc.jbehave.todo.test.junit.rule.autoincrement.HsqldbAutoIncrementColumnSettingRule;
 
 import com.excilys.ebi.spring.dbunit.test.DataSet;
 import com.excilys.ebi.spring.dbunit.test.DataSetTestExecutionListener;
@@ -70,66 +66,27 @@ import com.google.common.collect.Lists;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DataSetTestExecutionListener.class })
 @DataSet("/xml/todoDataSet.xml")
-public class TodoRepositoryTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositoryTest.class);
+public class TodoRepositoryRuleMannerTest {
 
     @Autowired
     private TodoRepository todoRepository;
     @Autowired
     private DataSource dataSource;
 
+    @Rule
+    @Autowired
+    public HsqldbAutoIncrementColumnSettingRule hsqldbAutoIncrementColumnSettingRule;
+
     @Configuration
     @Import(DataAccessLayerConfig.class)
-    static class Config {}
+    static class Config {
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-        Connection jdbcConnection = dataSource.getConnection();
-        resetSqlAutoIncrementColumn(jdbcConnection);
-        jdbcConnection.close();
-    }
-
-    /**
-     * <p>
-     * Repositionner la valeur courante de l'auto-incrément d'une colonne SQL.
-     * </p>
-     * <p>
-     * Ce repositionnement doit être fait avant chaque test.
-     * </p>
-     * 
-     * @param connection la connexion JDBC
-     */
-    private void resetSqlAutoIncrementColumn(Connection connection) {
-        try {
-            Statement restartStatement = connection.createStatement();
-            Long idMax = idMax(connection);
-            restartStatement.executeQuery("ALTER TABLE todo ALTER COLUMN id RESTART WITH " + (idMax + 1) + ";");
-            restartStatement.close();
-        } catch (SQLException e) {
-            LOGGER.error("{}", e.getMessage());
-            fail("Method resetSqlAutoIncrementColumn failed!");
+        @Bean
+        HsqldbAutoIncrementColumnSettingRule hsqldbAutoIncrementColumnSettingRule() {
+            return new HsqldbAutoIncrementColumnSettingRule() //
+                    .withTable("todo") //
+                    .withColumn("id");
         }
-    }
-
-    /**
-     * Renvoyer la valeur de l'identifiant maximal d'une table.
-     * 
-     * @param connection la connexion JDBC
-     * @return la valeur de l'identifiant maximal d'une table
-     * @throws SQLException en cas d'erreur SQL
-     */
-    private Long idMax(Connection connection) throws SQLException {
-        Statement maxIdStatement = connection.createStatement();
-        ResultSet resultSet = maxIdStatement.executeQuery("SELECT MAX(id) FROM todo;");
-        resultSet.next();
-        Long idMax = resultSet.getLong(1);
-        maxIdStatement.close();
-
-        return idMax;
     }
 
     /**
