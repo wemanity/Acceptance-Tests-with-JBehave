@@ -38,7 +38,57 @@
             <artifactId>spring-dbunit-test</artifactId>
             <version>1.3.0</version>
             <scope>compile</scope>
+            <exclusions>
+                <!-- Exclure les dépendances transitives à Spring dans des 
+                    versions antérieures à la version utilisée par le projet. -->
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-orm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-tx</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Spring Framework ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Inclure les modules de Spring nécessaires à Spring DbUnit Test. -->
+        <!-- Début - Spring DbUnit Test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <!-- Fin - Spring DbUnit Test -->
 
         <!-- ~~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Utilitaires ~~~ -->
