@@ -17,6 +17,7 @@
         <module>application-with-db</module>
         <module>hsqldb-source</module>
         <module>acceptance-tests-with-dbunit</module>
+        <module>dbunit-facilitation</module>
     </modules>
 
     <properties>
