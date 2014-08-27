@@ -14,6 +14,15 @@
     <name>DbUnit Facilitation</name>
 
     <dependencies>
+        <!-- ~~~~~~~~~~~~~ -->
+        <!-- ~~~ JUnit ~~~ -->
+        <!-- ~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- ~~~~~~~~~~~~~~ -->
         <!-- ~~~ DbUnit ~~~ -->
         <!-- ~~~~~~~~~~~~~~ -->
@@ -31,13 +40,12 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- ~~~~~~~~~~~~~ -->
-        <!-- ~~~ JUnit ~~~ -->
-        <!-- ~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Utilitaires ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~ -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.todo.test.junit.rule.autoincrement;
+package poc.jbehave.testing.junit.rule.autoincrement;
 
 import static org.junit.Assert.fail;
 
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Component;
  * @author Xavier Pigeon
  */
 @Component
-public class HsqldbAutoIncrementColumnSettingRule extends ExternalResource {
+public class HsqldbAutoIncrementSettingRule extends ExternalResource {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HsqldbAutoIncrementColumnSettingRule.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HsqldbAutoIncrementSettingRule.class);
 
     // Dépendances
     @Autowired
@@ -42,7 +42,7 @@ public class HsqldbAutoIncrementColumnSettingRule extends ExternalResource {
     /**
      * Constructeur par défaut.
      */
-    public HsqldbAutoIncrementColumnSettingRule() {
+    public HsqldbAutoIncrementSettingRule() {
         super();
         LOGGER.debug("Instance ready :-)");
     }
@@ -94,6 +94,7 @@ public class HsqldbAutoIncrementColumnSettingRule extends ExternalResource {
     private Long incrementReference() {
         if (!incrementReferenceValued) {
             SqlTableState sqlTableState = tableState(connection, tableName, columnName);
+            LOGGER.debug("Table State: {}", sqlTableState.toString());
             incrementReference = sqlTableState.getMaxId() + 1;
             incrementReferenceValued = true;
         }
@@ -114,19 +115,18 @@ public class HsqldbAutoIncrementColumnSettingRule extends ExternalResource {
      */
     @Override
     protected void after() {
-        SqlTableState sqlTableState = new SqlTableState(connection, tableName, columnName);
-        sqlTableState.build();
+        SqlTableState sqlTableState = tableState(connection, tableName, columnName);
         LOGGER.debug("Table State: {}", sqlTableState.toString());
 
         LOGGER.info("<<< AFTER >>>");
     }
 
-    public HsqldbAutoIncrementColumnSettingRule withTable(String tableName) {
+    public HsqldbAutoIncrementSettingRule withTable(String tableName) {
         setTableName(tableName);
         return this;
     }
 
-    public HsqldbAutoIncrementColumnSettingRule withColumn(String columnName) {
+    public HsqldbAutoIncrementSettingRule withColumn(String columnName) {
         setColumnName(columnName);
         return this;
     }

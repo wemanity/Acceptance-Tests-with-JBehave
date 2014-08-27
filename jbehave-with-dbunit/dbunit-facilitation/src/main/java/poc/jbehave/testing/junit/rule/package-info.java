@@ -3,4 +3,4 @@
  * 
  * @author Xavier Pigeon
  */
-package poc.jbehave.todo.test.junit.rule;
+package poc.jbehave.testing.junit.rule;

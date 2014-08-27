@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.todo.test.junit.rule.autoincrement;
+package poc.jbehave.testing.junit.rule.autoincrement;
 
 import static org.junit.Assert.fail;
 

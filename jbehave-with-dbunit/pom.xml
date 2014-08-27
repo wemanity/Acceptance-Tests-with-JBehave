@@ -71,7 +71,16 @@
                 <version>${springframework.version}</version>
                 <scope>test</scope>
             </dependency>
-            
+
+            <!-- ~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ Utilitaires ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~ -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>17.0</version>
+            </dependency>
+
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <!-- ~~~ Built-in Dependencies ~~~ -->
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
