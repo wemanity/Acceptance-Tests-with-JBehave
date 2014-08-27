@@ -89,19 +89,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- ~~~~~~~~~~~~~~ -->
-        <!-- ~~~ DbUnit ~~~ -->
-        <!-- ~~~~~~~~~~~~~~ -->
-        <dependency>
-            <groupId>org.dbunit</groupId>
-            <artifactId>dbunit</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.excilys.ebi.spring-dbunit</groupId>
-            <artifactId>spring-dbunit-test</artifactId>
-        </dependency>
-
         <!-- ~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Testing ~~~ -->
         <!-- ~~~~~~~~~~~~~~~ -->
@@ -124,6 +111,15 @@
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
             <version>3.2</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~ -->
+        <!-- ~~~ DbUnit ~~~ -->
+        <!-- ~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>dbunit-facilitation</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- ~~~~~~~~~~~~~~~~~~~ -->
