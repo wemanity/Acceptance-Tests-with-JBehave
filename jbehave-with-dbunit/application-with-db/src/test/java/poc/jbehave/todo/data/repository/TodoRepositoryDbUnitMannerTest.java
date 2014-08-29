@@ -6,7 +6,6 @@ package poc.jbehave.todo.data.repository;
 import static org.dbunit.Assertion.assertEquals;
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import javax.sql.DataSource;
 
 import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.IDatabaseTester;
+import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -94,15 +94,45 @@ public class TodoRepositoryDbUnitMannerTest {
         databaseTester.onTearDown();
     }
 
+    private void verifyTableData(String tableName, String flatXmlDataSetPath) throws Exception {
+        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
+        ITable actualTable = actualDataSet.getTable(tableName);
+
+        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(flatXmlDataSetPath));
+        ITable expectedTable = expectedDataSet.getTable(tableName);
+
+        assertEquals(expectedTable, actualTable);
+    }
+
+    private void verifyDataSet(String flatXmlDataSetPath) throws Exception {
+        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
+
+        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(flatXmlDataSetPath));
+
+        assertEquals(expectedDataSet, actualDataSet);
+    }
+
+    private void verifyEmptyDataSet() throws Exception {
+        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
+        assertEquals(new DefaultDataSet(), actualDataSet);
+    }
+
+    private void verifyEmptyTable(String tableName) throws Exception {
+        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
+        ITable actualTable = actualDataSet.getTable(tableName);
+        assertThat(actualTable.getRowCount()).isEqualTo(0);
+    }
+
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#save(S)}.
      * 
      * @throws Exception
-     * @throws SQLException
      */
     @Test
-    public void testSaveS() throws SQLException, Exception {
+    public void testSaveS() throws Exception {
         // GIVEN
         Todo todo = new Todo(5L, "Refactoring.", false);
 
@@ -110,35 +140,36 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.save(todo);
 
         // THEN
-        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
-        ITable actualTable = actualDataSet.getTable(TODO_TABLE);
-
-        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("xml/saveSExpectedDataSet.xml"));
-        ITable expectedTable = expectedDataSet.getTable(TODO_TABLE);
-
-        assertEquals(expectedTable, actualTable);
+        verifyTableData(TODO_TABLE, "xml/saveSExpectedDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#save(java.lang.Iterable)}
      * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testSaveIterableOfS() {
+    public void testSaveIterableOfS() throws Exception {
+        // WHEN
         todoRepository.save(Arrays.asList( //
                 new Todo(5L, "Documenter le code.", true), //
                 new Todo(6L, "Ajouter les package-info.", true)));
+
+        // THEN
+        verifyTableData(TODO_TABLE, "xml/saveIterableOfSExpectedDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#findOne(java.io.Serializable)}
      * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testFindOne() {
+    public void testFindOne() throws Exception {
         // WHEN
         Todo todo = todoRepository.findOne(2L);
 
@@ -146,99 +177,136 @@ public class TodoRepositoryDbUnitMannerTest {
         assertThat(todo).isNotNull();
         assertThat(todo.getId()).isEqualTo(2);
         assertThat(todo.getLabel()).isEqualTo("Constituer les jeux de données de test pour DbUnit.");
+
+        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#exists(java.io.Serializable)}
      * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testExists() {
+    public void testExists() throws Exception {
         // WHEN
         boolean exists = todoRepository.exists(5L);
 
         // THEN
         assertThat(exists).isFalse();
+        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#findAll()}.
+     * 
+     * @throws Exception
      */
     @Test
-    public void testFindAll() {
+    public void testFindAll() throws Exception {
         // WHEN
         List<Todo> todos = Lists.newArrayList(todoRepository.findAll());
 
         // THEN
         assertThat(todos).hasSize(4);
+        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#findAll(java.lang.Iterable)}
      * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testFindAllIterableOfID() {
+    public void testFindAllIterableOfID() throws Exception {
         // WHEN
         Iterable<Todo> todos = todoRepository.findAll(Arrays.asList(new Long(2), new Long(4)));
 
         // THEN
         assertThat(todos).hasSize(2);
+        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#count()}.
+     * 
+     * @throws Exception
      */
     @Test
-    public void testCount() {
+    public void testCount() throws Exception {
         // WHEN
         long count = todoRepository.count();
 
         // THEN
         assertThat(count).isEqualTo(4);
+        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#delete(java.io.Serializable)}
      * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testDeleteID() {
+    public void testDeleteID() throws Exception {
+        // WHEN
         todoRepository.delete(1L);
+
+        // THEN
+        verifyTableData(TODO_TABLE, "xml/deleteIdExpectedDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#delete(java.lang.Object)}
      * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testDeleteT() {
+    public void testDeleteT() throws Exception {
+        // WHEN
         todoRepository.delete(new Todo(2L));
+
+        // THEN
+        verifyTableData(TODO_TABLE, "xml/deleteTExpectedDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#delete(java.lang.Iterable)}
      * .
+     * 
+     * @throws Exception
      */
     @Test
-    public void testDeleteIterableOfQextendsT() {
+    public void testDeleteIterableOfQextendsT() throws Exception {
         // WHEN
         todoRepository.delete(Arrays.asList(new Todo(2L), new Todo(4L)));
+
+        // THEN
+        verifyTableData(TODO_TABLE, "xml/deleteIterableOfQextendsTExpectedDataSet.xml");
     }
 
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#deleteAll()}.
+     * 
+     * @throws Exception
      */
     @Test
-    public void testDeleteAll() {
+    public void testDeleteAll() throws Exception {
+        // WHEN
         todoRepository.deleteAll();
+
+        // THEN
+        verifyEmptyTable(TODO_TABLE);
     }
 }
