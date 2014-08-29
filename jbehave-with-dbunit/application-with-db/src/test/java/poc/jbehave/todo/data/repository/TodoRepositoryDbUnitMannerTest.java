@@ -3,8 +3,10 @@
  */
 package poc.jbehave.todo.data.repository;
 
+import static org.dbunit.Assertion.assertEquals;
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,19 +15,23 @@ import javax.sql.DataSource;
 import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import poc.jbehave.testing.junit.rule.autoincrement.HsqldbAutoIncrementSettingRule;
 import poc.jbehave.todo.data.bean.Todo;
 import poc.jbehave.todo.data.config.DataAccessLayerConfig;
 
@@ -40,16 +46,27 @@ import com.google.common.collect.Lists;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class TodoRepositoryDbUnitMannerTest {
 
+    private static final String TODO_TABLE = "todo";
     @Autowired
     private TodoRepository todoRepository;
     @Autowired
     private DataSource dataSource;
-
+    @Rule
+    @Autowired
+    public HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule;
     private IDatabaseTester databaseTester;
 
     @Configuration
     @Import(DataAccessLayerConfig.class)
-    static class Config {}
+    static class Config {
+
+        @Bean
+        HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule() {
+            return new HsqldbAutoIncrementSettingRule() //
+                    .withTable(TODO_TABLE) //
+                    .withColumn("id");
+        }
+    }
 
     /**
      * @throws java.lang.Exception
@@ -80,14 +97,27 @@ public class TodoRepositoryDbUnitMannerTest {
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#save(S)}.
+     * 
+     * @throws Exception
+     * @throws SQLException
      */
     @Test
-    public void testSaveS() {
+    public void testSaveS() throws SQLException, Exception {
         // GIVEN
         Todo todo = new Todo(5L, "Refactoring.", false);
 
         // WHEN
         todoRepository.save(todo);
+
+        // THEN
+        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
+        ITable actualTable = actualDataSet.getTable(TODO_TABLE);
+
+        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("xml/saveSExpectedDataSet.xml"));
+        ITable expectedTable = expectedDataSet.getTable(TODO_TABLE);
+
+        assertEquals(expectedTable, actualTable);
     }
 
     /**
