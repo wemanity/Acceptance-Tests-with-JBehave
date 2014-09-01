@@ -3,7 +3,6 @@
  */
 package poc.jbehave.todo.data.repository;
 
-import static org.dbunit.Assertion.assertEquals;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.Arrays;
@@ -13,9 +12,7 @@ import javax.sql.DataSource;
 
 import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.IDatabaseTester;
-import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
@@ -23,8 +20,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,7 +44,6 @@ import com.google.common.collect.Lists;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class TodoRepositoryDbUnitMannerTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositoryDbUnitMannerTest.class);
     private static final String TODO_TABLE = "todo";
     private static final String ID_COLUMN = "id";
 
@@ -73,7 +67,6 @@ public class TodoRepositoryDbUnitMannerTest {
 
         @Bean
         HsqldbAutoIncrementSettingRule autoIncrementSettingRule() {
-            LOGGER.debug("hsqldbAutoIncrementSettingRule injected :-)");
             return new HsqldbAutoIncrementSettingRule() //
                     .withTable(TODO_TABLE) //
                     .withColumn(ID_COLUMN);
@@ -110,37 +103,6 @@ public class TodoRepositoryDbUnitMannerTest {
         databaseTester.onTearDown();
     }
 
-    private void verifyTableData(String tableName, String flatXmlDataSetPath) throws Exception {
-        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
-        ITable actualTable = actualDataSet.getTable(tableName);
-
-        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream(flatXmlDataSetPath));
-        ITable expectedTable = expectedDataSet.getTable(tableName);
-
-        assertEquals(expectedTable, actualTable);
-    }
-
-    private void verifyDataSet(String flatXmlDataSetPath) throws Exception {
-        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
-
-        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream(flatXmlDataSetPath));
-
-        assertEquals(expectedDataSet, actualDataSet);
-    }
-
-    private void verifyEmptyDataSet() throws Exception {
-        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
-        assertEquals(new DefaultDataSet(), actualDataSet);
-    }
-
-    private void verifyEmptyTable(String tableName) throws Exception {
-        IDataSet actualDataSet = databaseTester.getConnection().createDataSet();
-        ITable actualTable = actualDataSet.getTable(tableName);
-        assertThat(actualTable.getRowCount()).isEqualTo(0);
-    }
-
     /**
      * Test method for
      * {@link org.springframework.data.repository.CrudRepository#save(S)}.
@@ -156,7 +118,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.save(todo);
 
         // THEN
-        verifyTableData(TODO_TABLE, "xml/saveSExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/saveSExpectedDataSet.xml");
     }
 
     /**
@@ -174,7 +136,7 @@ public class TodoRepositoryDbUnitMannerTest {
                 new Todo(6L, "Ajouter les package-info.", true)));
 
         // THEN
-        verifyTableData(TODO_TABLE, "xml/saveIterableOfSExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/saveIterableOfSExpectedDataSet.xml");
     }
 
     /**
@@ -194,7 +156,7 @@ public class TodoRepositoryDbUnitMannerTest {
         assertThat(todo.getId()).isEqualTo(2);
         assertThat(todo.getLabel()).isEqualTo("Constituer les jeux de données de test pour DbUnit.");
 
-        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
@@ -211,7 +173,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(exists).isFalse();
-        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
@@ -227,7 +189,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(todos).hasSize(4);
-        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
@@ -244,7 +206,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(todos).hasSize(2);
-        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
@@ -260,7 +222,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(count).isEqualTo(4);
-        verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
     }
 
     /**
@@ -276,7 +238,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.delete(1L);
 
         // THEN
-        verifyTableData(TODO_TABLE, "xml/deleteIdExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/deleteIdExpectedDataSet.xml");
     }
 
     /**
@@ -292,7 +254,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.delete(new Todo(2L));
 
         // THEN
-        verifyTableData(TODO_TABLE, "xml/deleteTExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/deleteTExpectedDataSet.xml");
     }
 
     /**
@@ -308,7 +270,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.delete(Arrays.asList(new Todo(2L), new Todo(4L)));
 
         // THEN
-        verifyTableData(TODO_TABLE, "xml/deleteIterableOfQextendsTExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, "xml/deleteIterableOfQextendsTExpectedDataSet.xml");
     }
 
     /**
@@ -323,6 +285,6 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.deleteAll();
 
         // THEN
-        verifyEmptyTable(TODO_TABLE);
+        dataChecker.verifyEmptyTable(TODO_TABLE);
     }
 }
