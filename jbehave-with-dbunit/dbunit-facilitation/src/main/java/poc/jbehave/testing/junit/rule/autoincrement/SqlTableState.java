@@ -57,11 +57,13 @@ class SqlTableState {
     }
 
     private void refreshMaxIdAndCount() throws SQLException {
+        String sqlQuery = "SELECT MAX(" + columnName + ")," //
+                + " COUNT(DISTINCT " + columnName + ")" //
+                + " FROM " + tableName + ";";
+        LOGGER.debug("SQL query: {}", sqlQuery);
+
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery( //
-                "SELECT MAX(" + columnName + ")," //
-                        + " COUNT(DISTINCT " + columnName + ")" //
-                        + " FROM " + tableName + ";");
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
         resultSet.next();
         maxId = resultSet.getLong(1);
         count = resultSet.getLong(2);

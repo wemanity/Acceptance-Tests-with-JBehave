@@ -23,6 +23,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import poc.jbehave.testing.config.EnableDbUnitFacilitation;
+import poc.jbehave.testing.dbunit.assertion.DataChecker;
 import poc.jbehave.testing.junit.rule.autoincrement.HsqldbAutoIncrementSettingRule;
 import poc.jbehave.todo.data.bean.Todo;
 import poc.jbehave.todo.data.config.EnableTodoApplicationData;
@@ -37,7 +41,7 @@ import poc.jbehave.todo.data.config.EnableTodoApplicationData;
 import com.google.common.collect.Lists;
 
 /**
- * Test Case for {@link TodoRepository}.
+ * Test Cases for {@link TodoRepository}.
  * 
  * @author Xavier Pigeon
  */
@@ -45,29 +49,34 @@ import com.google.common.collect.Lists;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class TodoRepositoryDbUnitMannerTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositoryDbUnitMannerTest.class);
     private static final String TODO_TABLE = "todo";
+    private static final String ID_COLUMN = "id";
+
     @Autowired
     private TodoRepository todoRepository;
-    @Autowired
-    private DataSource dataSource;
     @Rule
     @Autowired
-    public HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule;
+    public HsqldbAutoIncrementSettingRule autoIncrementSettingRule;
     @Autowired
     private IDatabaseTester databaseTester;
+    @Autowired
+    private DataChecker dataChecker;
 
     @Configuration
     @EnableTodoApplicationData
+    @EnableDbUnitFacilitation
     static class Config {
 
         @Autowired
         private DataSource dataSource;
 
         @Bean
-        HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule() {
+        HsqldbAutoIncrementSettingRule autoIncrementSettingRule() {
+            LOGGER.debug("hsqldbAutoIncrementSettingRule injected :-)");
             return new HsqldbAutoIncrementSettingRule() //
                     .withTable(TODO_TABLE) //
-                    .withColumn("id");
+                    .withColumn(ID_COLUMN);
         }
 
         @Bean
