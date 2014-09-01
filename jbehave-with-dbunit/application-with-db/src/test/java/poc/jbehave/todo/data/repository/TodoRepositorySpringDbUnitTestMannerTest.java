@@ -21,8 +21,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -67,21 +65,17 @@ import com.google.common.collect.Lists;
  * @author Xavier Pigeon
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = DataAccessLayerConfig.class, loader = AnnotationConfigContextLoader.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DataSetTestExecutionListener.class })
 @DataSet("/xml/todoDataSet.xml")
-public class TodoRepositoryTest {
+public class TodoRepositorySpringDbUnitTestMannerTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositoryTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositorySpringDbUnitTestMannerTest.class);
 
     @Autowired
     private TodoRepository todoRepository;
     @Autowired
     private DataSource dataSource;
-
-    @Configuration
-    @Import(DataAccessLayerConfig.class)
-    static class Config {}
 
     /**
      * @throws java.lang.Exception

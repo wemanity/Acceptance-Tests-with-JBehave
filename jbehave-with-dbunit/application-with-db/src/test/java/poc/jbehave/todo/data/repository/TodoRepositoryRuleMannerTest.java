@@ -17,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,7 +25,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import poc.jbehave.testing.junit.rule.autoincrement.HsqldbAutoIncrementSettingRule;
 import poc.jbehave.todo.data.bean.Todo;
-import poc.jbehave.todo.data.config.DataAccessLayerConfig;
+import poc.jbehave.todo.data.config.EnableTodoApplicationData;
 
 import com.excilys.ebi.spring.dbunit.test.DataSet;
 import com.excilys.ebi.spring.dbunit.test.DataSetTestExecutionListener;
@@ -68,6 +67,9 @@ import com.google.common.collect.Lists;
 @DataSet("/xml/todoDataSet.xml")
 public class TodoRepositoryRuleMannerTest {
 
+    private static final String ID_COLUMN = "id";
+    private static final String TODO_TABLE = "todo";
+
     @Autowired
     private TodoRepository todoRepository;
     @Autowired
@@ -78,14 +80,14 @@ public class TodoRepositoryRuleMannerTest {
     public HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule;
 
     @Configuration
-    @Import(DataAccessLayerConfig.class)
+    @EnableTodoApplicationData
     static class Config {
 
         @Bean
         HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule() {
             return new HsqldbAutoIncrementSettingRule() //
-                    .withTable("todo") //
-                    .withColumn("id");
+                    .withTable(TODO_TABLE) //
+                    .withColumn(ID_COLUMN);
         }
     }
 

@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,6 +23,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import poc.jbehave.todo.data.bean.Todo;
 import poc.jbehave.todo.data.repository.TodoRepository;
 import poc.jbehave.todo.service.api.AllTodosDto;
+import poc.jbehave.todo.service.config.EnableTodoApplicationService;
 
 /**
  * Test Case for {@link TodoService}.
@@ -40,7 +40,7 @@ public class TodoServiceTest {
     private TodoRepository todoRepository;
 
     @Configuration
-    @ComponentScan(basePackages = "poc.jbehave.todo.service.business")
+    @EnableTodoApplicationService
     static class Config {
 
         @Bean

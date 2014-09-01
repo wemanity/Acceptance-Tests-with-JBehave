@@ -11,8 +11,6 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,7 +22,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
  * @author Xavier Pigeon
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = HsqldbDataSourceConfig.class, loader = AnnotationConfigContextLoader.class)
 public class HsqldbDataSourceConfigTest {
 
     @Autowired
@@ -36,10 +34,6 @@ public class HsqldbDataSourceConfigTest {
     public void tearDown() throws Exception {
         ((EmbeddedDatabase) dataSource).shutdown();
     }
-
-    @Configuration
-    @Import(HsqldbDataSourceConfig.class)
-    static class Config {}
 
     /**
      * Test method for
