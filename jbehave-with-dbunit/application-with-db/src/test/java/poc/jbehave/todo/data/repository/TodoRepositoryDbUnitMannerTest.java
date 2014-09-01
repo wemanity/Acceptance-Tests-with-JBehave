@@ -26,14 +26,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import poc.jbehave.testing.junit.rule.autoincrement.HsqldbAutoIncrementSettingRule;
 import poc.jbehave.todo.data.bean.Todo;
-import poc.jbehave.todo.data.config.DataAccessLayerConfig;
+import poc.jbehave.todo.data.config.EnableTodoApplicationData;
 
 import com.google.common.collect.Lists;
 
@@ -54,17 +53,26 @@ public class TodoRepositoryDbUnitMannerTest {
     @Rule
     @Autowired
     public HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule;
+    @Autowired
     private IDatabaseTester databaseTester;
 
     @Configuration
-    @Import(DataAccessLayerConfig.class)
+    @EnableTodoApplicationData
     static class Config {
+
+        @Autowired
+        private DataSource dataSource;
 
         @Bean
         HsqldbAutoIncrementSettingRule hsqldbAutoIncrementSettingRule() {
             return new HsqldbAutoIncrementSettingRule() //
                     .withTable(TODO_TABLE) //
                     .withColumn("id");
+        }
+
+        @Bean
+        IDatabaseTester databaseTester() {
+            return new DataSourceDatabaseTester(dataSource);
         }
     }
 
@@ -74,7 +82,6 @@ public class TodoRepositoryDbUnitMannerTest {
     @Before
     public void setUp() throws Exception {
         // Préparation de la base de données
-        databaseTester = new DataSourceDatabaseTester(dataSource);
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
         databaseTester.setTearDownOperation(DatabaseOperation.NONE);
 
