@@ -3,6 +3,8 @@
  */
 package poc.jbehave.todo.service.domain;
 
+import com.google.common.base.Objects;
+
 /**
  * Un élément Todo.
  * 
@@ -15,6 +17,13 @@ public class Todo {
     private Boolean done;
 
     /**
+     * Constructeur.
+     */
+    public Todo() {}
+
+    /**
+     * Constructeur.
+     * 
      * @param id
      * @param label
      */
@@ -25,6 +34,8 @@ public class Todo {
     }
 
     /**
+     * Constructeur.
+     * 
      * @param id
      * @param label
      */
@@ -34,11 +45,54 @@ public class Todo {
     }
 
     /**
+     * Constructeur.
      * 
      * @param todo
      */
     public Todo(poc.jbehave.todo.data.bean.Todo todo) {
         this(todo.getId(), todo.getLabel(), todo.isDone());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        boolean areEqual = false;
+
+        if (obj == null) {
+            areEqual = false;
+        } else if (getClass() != obj.getClass()) {
+            areEqual = false;
+        } else {
+            final Todo other = (Todo) obj;
+
+            areEqual = Objects.equal(this.id, other.id) //
+                    && Objects.equal(this.label, other.label) //
+                    && Objects.equal(this.done, other.done);
+        }
+
+        return areEqual;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, label, done);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(Todo.class) //
+                .addValue(id) //
+                .addValue(label) //
+                .addValue(done) //
+                .toString();
     }
 
     /**
