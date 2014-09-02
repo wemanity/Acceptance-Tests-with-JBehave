@@ -24,6 +24,7 @@ import poc.jbehave.testing.config.EnableDbUnitFacilitation;
 import poc.jbehave.testing.dbunit.assertion.DataChecker;
 import poc.jbehave.todo.service.api.AllTodosDto;
 import poc.jbehave.todo.service.api.ITodoService;
+import poc.jbehave.todo.service.api.NewTodoDto;
 import poc.jbehave.todo.service.domain.Todo;
 
 /**
@@ -35,10 +36,12 @@ import poc.jbehave.todo.service.domain.Todo;
 public class TodoSteps {
 
     private static final String ALL_TODOS_DATA_SET = "dataset/todoDataSet.xml";
+    private static final String NEW_TODO_EXPECTED_DATA_SET = "dataset/newTodoExpectedDataSet.xml";
 
     @Autowired
     private ITodoService todoService;
     private AllTodosDto allTodosDto;
+    private NewTodoDto newTodoDto;
     @Autowired
     private IDatabaseTester databaseTester;
     @Autowired
@@ -75,6 +78,11 @@ public class TodoSteps {
         allTodosDto = todoService.getAllTodos();
     }
 
+    @When("I add a new todo \"$label\"")
+    public void iAddNewTodo(String label) {
+        newTodoDto = todoService.addNewTodo(label);
+    }
+
     @Then("I get $number todos")
     public void iGetTodos(Integer number) throws Exception {
         assertThat(allTodosDto.getTodos()).hasSize(number);
@@ -85,6 +93,22 @@ public class TodoSteps {
                 new Todo(4L, "Implémenter la couche de persistance.", false));
 
         dataChecker.verifyTableData("todo", ALL_TODOS_DATA_SET);
+        databaseTester.onTearDown();
+    }
+
+    @Then("the last added todo is labeled \"$label\"")
+    public void theLastAddedTodoIsLabeled(String label) {
+        assertThat(newTodoDto.getNewTodo().getLabel()).isEqualTo(label);
+    }
+
+    @Then("the last added todo is not done")
+    public void theLastAddedTodoIsNotDone() {
+        assertThat(newTodoDto.getNewTodo().getDone()).isFalse();
+    }
+
+    @Then("the list of todos has grew by this last todo")
+    public void theListOfTodosHasGrewByThisLastTodo() throws Exception {
+        dataChecker.verifyTableData("todo", NEW_TODO_EXPECTED_DATA_SET);
         databaseTester.onTearDown();
     }
 }

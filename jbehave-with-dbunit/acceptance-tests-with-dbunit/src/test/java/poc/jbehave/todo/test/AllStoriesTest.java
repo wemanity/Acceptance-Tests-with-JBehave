@@ -55,7 +55,7 @@ public class AllStoriesTest extends JUnitStories {
                 .doIgnoreFailureInStories(false) //
                 .doIgnoreFailureInView(true) //
                 .doVerboseFailures(true) //
-                .useThreads(2) // 1 par défaut
+                .useThreads(1) // 1 par défaut
                 .useStoryTimeoutInSecs(6000);
     }
 

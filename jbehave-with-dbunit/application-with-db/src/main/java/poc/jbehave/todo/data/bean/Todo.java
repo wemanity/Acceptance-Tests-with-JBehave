@@ -71,6 +71,16 @@ public class Todo {
     }
 
     /**
+     * Constructeur.
+     * 
+     * @param label le libellé
+     */
+    public Todo(String label) {
+        this.label = label;
+        done = false;
+    }
+
+    /**
      * Getter for the field id.
      * 
      * @return the id
