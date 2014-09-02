@@ -23,4 +23,11 @@ public interface ITodoService {
      * @return un objet {@link NewTodoDto}
      */
     NewTodoDto addNewTodo(String label);
+
+    /**
+     * Supprimer un todo.
+     * 
+     * @param number le numéro du todo à supprimer
+     */
+    void deleteOldTodo(Long number);
 }

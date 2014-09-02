@@ -50,4 +50,12 @@ public class TodoService implements ITodoService {
                 todoRepository.save(new poc.jbehave.todo.data.bean.Todo(label)));
         return new NewTodoDto(newTodo);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteOldTodo(Long number) {
+        todoRepository.delete(number);
+    }
 }

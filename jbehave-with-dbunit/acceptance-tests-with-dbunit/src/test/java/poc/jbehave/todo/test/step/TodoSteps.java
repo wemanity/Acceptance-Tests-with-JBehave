@@ -12,6 +12,7 @@ import org.dbunit.IDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
+import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -37,6 +38,7 @@ public class TodoSteps {
 
     private static final String ALL_TODOS_DATA_SET = "dataset/todoDataSet.xml";
     private static final String NEW_TODO_EXPECTED_DATA_SET = "dataset/newTodoExpectedDataSet.xml";
+    private static final String DELETED_TODO_EXPECTED_DATA_SET = "dataset/deletedTodoExpectedDataSet.xml";
 
     @Autowired
     private ITodoService todoService;
@@ -83,6 +85,11 @@ public class TodoSteps {
         newTodoDto = todoService.addNewTodo(label);
     }
 
+    @When("I delete the todo number $number")
+    public void iDeleteTodoNumber(Long number) {
+        todoService.deleteOldTodo(number);
+    }
+
     @Then("I get $number todos")
     public void iGetTodos(Integer number) throws Exception {
         assertThat(allTodosDto.getTodos()).hasSize(number);
@@ -93,7 +100,6 @@ public class TodoSteps {
                 new Todo(4L, "Implémenter la couche de persistance.", false));
 
         dataChecker.verifyTableData("todo", ALL_TODOS_DATA_SET);
-        databaseTester.onTearDown();
     }
 
     @Then("the last added todo is labeled \"$label\"")
@@ -109,6 +115,15 @@ public class TodoSteps {
     @Then("the list of todos has grew by this last todo")
     public void theListOfTodosHasGrewByThisLastTodo() throws Exception {
         dataChecker.verifyTableData("todo", NEW_TODO_EXPECTED_DATA_SET);
+    }
+
+    @Then("the list of todos has decreased by $amount todo")
+    public void theListOfTodosHasDecreasdBy(int amount) throws Exception {
+        dataChecker.verifyTableData("todo", DELETED_TODO_EXPECTED_DATA_SET);
+    }
+
+    @AfterScenario
+    public void tearDownDatabase() throws Exception {
         databaseTester.onTearDown();
     }
 }
