@@ -13,6 +13,7 @@ import poc.jbehave.todo.data.repository.TodoRepository;
 import poc.jbehave.todo.service.api.AllTodosDto;
 import poc.jbehave.todo.service.api.ITodoService;
 import poc.jbehave.todo.service.api.NewTodoDto;
+import poc.jbehave.todo.service.api.UpdatedTodoDto;
 import poc.jbehave.todo.service.domain.Todo;
 
 import com.google.common.collect.Lists;
@@ -57,5 +58,26 @@ public class TodoService implements ITodoService {
     @Override
     public void deleteOldTodo(Long number) {
         todoRepository.delete(number);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UpdatedTodoDto updateLabel(Long number, String label) {
+        poc.jbehave.todo.data.bean.Todo todoToBeUpdated = todoRepository.findOne(number);
+        todoToBeUpdated.setLabel(label);
+        poc.jbehave.todo.data.bean.Todo updatedTodo = todoRepository.save(todoToBeUpdated);
+
+        return new UpdatedTodoDto(new Todo(updatedTodo));
+    }
+
+    @Override
+    public UpdatedTodoDto achieveTodo(Long number) {
+        poc.jbehave.todo.data.bean.Todo todoToBeUpdated = todoRepository.findOne(number);
+        todoToBeUpdated.setDone(true);
+        poc.jbehave.todo.data.bean.Todo updatedTodo = todoRepository.save(todoToBeUpdated);
+
+        return new UpdatedTodoDto(new Todo(updatedTodo));
     }
 }

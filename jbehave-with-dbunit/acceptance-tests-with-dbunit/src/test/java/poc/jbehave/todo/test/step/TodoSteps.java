@@ -26,6 +26,7 @@ import poc.jbehave.testing.dbunit.assertion.DataChecker;
 import poc.jbehave.todo.service.api.AllTodosDto;
 import poc.jbehave.todo.service.api.ITodoService;
 import poc.jbehave.todo.service.api.NewTodoDto;
+import poc.jbehave.todo.service.api.UpdatedTodoDto;
 import poc.jbehave.todo.service.domain.Todo;
 
 /**
@@ -36,14 +37,18 @@ import poc.jbehave.todo.service.domain.Todo;
 @StepsDefinition
 public class TodoSteps {
 
+    private static final String TODO_TABLE = "todo";
     private static final String ALL_TODOS_DATA_SET = "dataset/todoDataSet.xml";
     private static final String NEW_TODO_EXPECTED_DATA_SET = "dataset/newTodoExpectedDataSet.xml";
     private static final String DELETED_TODO_EXPECTED_DATA_SET = "dataset/deletedTodoExpectedDataSet.xml";
+    private static final String UPDATED_TODO_LABEL_EXPECTED_DATA_SET = "dataset/updatedTodoLabelExpectedDataSet.xml";
+    private static final String UPDATED_TODO_DONE_STATUS_EXPECTED_DATA_SET = "dataset/updatedTodoDoneStatusExpectedDataSet.xml";
 
     @Autowired
     private ITodoService todoService;
     private AllTodosDto allTodosDto;
     private NewTodoDto newTodoDto;
+    private UpdatedTodoDto updatedTodoDto;
     @Autowired
     private IDatabaseTester databaseTester;
     @Autowired
@@ -90,6 +95,16 @@ public class TodoSteps {
         todoService.deleteOldTodo(number);
     }
 
+    @When("I replace the todo $number by this label \"$label\"")
+    public void iReplaceTodoByLabel(Long number, String label) {
+        updatedTodoDto = todoService.updateLabel(number, label);
+    }
+
+    @When("I finish the todo $number")
+    public void iFinishTodo(Long number) {
+        updatedTodoDto = todoService.achieveTodo(number);
+    }
+
     @Then("I get $number todos")
     public void iGetTodos(Integer number) throws Exception {
         assertThat(allTodosDto.getTodos()).hasSize(number);
@@ -99,7 +114,7 @@ public class TodoSteps {
                 new Todo(3L, "Implémenter la couche de service.", false), //
                 new Todo(4L, "Implémenter la couche de persistance.", false));
 
-        dataChecker.verifyTableData("todo", ALL_TODOS_DATA_SET);
+        dataChecker.verifyTableData(TODO_TABLE, ALL_TODOS_DATA_SET);
     }
 
     @Then("the last added todo is labeled \"$label\"")
@@ -109,17 +124,33 @@ public class TodoSteps {
 
     @Then("the last added todo is not done")
     public void theLastAddedTodoIsNotDone() {
-        assertThat(newTodoDto.getNewTodo().getDone()).isFalse();
+        assertThat(newTodoDto.getNewTodo().isDone()).isFalse();
     }
 
     @Then("the list of todos has grew by this last todo")
     public void theListOfTodosHasGrewByThisLastTodo() throws Exception {
-        dataChecker.verifyTableData("todo", NEW_TODO_EXPECTED_DATA_SET);
+        dataChecker.verifyTableData(TODO_TABLE, NEW_TODO_EXPECTED_DATA_SET);
     }
 
     @Then("the list of todos has decreased by $amount todo")
     public void theListOfTodosHasDecreasdBy(int amount) throws Exception {
-        dataChecker.verifyTableData("todo", DELETED_TODO_EXPECTED_DATA_SET);
+        dataChecker.verifyTableData(TODO_TABLE, DELETED_TODO_EXPECTED_DATA_SET);
+    }
+
+    @Then("the todo $number label has been replaced by \"$label\"")
+    public void theTodoLabelHasBeenUpdated(Long number, String label) throws Exception {
+        Todo updatedTodo = updatedTodoDto.getUpdatedTodo();
+        assertThat(updatedTodo.getId()).isEqualTo(number);
+        assertThat(updatedTodo.getLabel()).isEqualTo(label);
+        dataChecker.verifyTableData(TODO_TABLE, UPDATED_TODO_LABEL_EXPECTED_DATA_SET);
+    }
+
+    @Then("the todo $number is done")
+    public void theTodoIsDone(Long number) throws Exception {
+        Todo updatedTodo = updatedTodoDto.getUpdatedTodo();
+        assertThat(updatedTodo.getId()).isEqualTo(number);
+        assertThat(updatedTodo.isDone()).isTrue();
+        dataChecker.verifyTableData(TODO_TABLE, UPDATED_TODO_DONE_STATUS_EXPECTED_DATA_SET);
     }
 
     @AfterScenario

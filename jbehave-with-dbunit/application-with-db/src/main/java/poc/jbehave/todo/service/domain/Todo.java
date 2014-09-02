@@ -136,7 +136,7 @@ public class Todo {
      * 
      * @return the done
      */
-    public Boolean getDone() {
+    public Boolean isDone() {
         return done;
     }
 
