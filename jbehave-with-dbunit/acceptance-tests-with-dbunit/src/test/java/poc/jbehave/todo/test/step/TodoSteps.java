@@ -38,11 +38,11 @@ import poc.jbehave.todo.service.domain.Todo;
 public class TodoSteps {
 
     private static final String TODO_TABLE = "todo";
-    private static final String ALL_TODOS_DATA_SET = "dataset/todoDataSet.xml";
-    private static final String NEW_TODO_EXPECTED_DATA_SET = "dataset/newTodoExpectedDataSet.xml";
-    private static final String DELETED_TODO_EXPECTED_DATA_SET = "dataset/deletedTodoExpectedDataSet.xml";
-    private static final String UPDATED_TODO_LABEL_EXPECTED_DATA_SET = "dataset/updatedTodoLabelExpectedDataSet.xml";
-    private static final String UPDATED_TODO_DONE_STATUS_EXPECTED_DATA_SET = "dataset/updatedTodoDoneStatusExpectedDataSet.xml";
+    private static final String ALL_TODOS_DATA_SET = "xml/dataset/todoDataSet.xml";
+    private static final String NEW_TODO_EXPECTED_DATA_SET = "xml/dataset/newTodoExpectedDataSet.xml";
+    private static final String DELETED_TODO_EXPECTED_DATA_SET = "xml/dataset/deletedTodoExpectedDataSet.xml";
+    private static final String UPDATED_TODO_LABEL_EXPECTED_DATA_SET = "xml/dataset/updatedTodoLabelExpectedDataSet.xml";
+    private static final String UPDATED_TODO_DONE_STATUS_EXPECTED_DATA_SET = "xml/dataset/updatedTodoDoneStatusExpectedDataSet.xml";
 
     @Autowired
     private ITodoService todoService;

@@ -46,6 +46,12 @@ public class TodoRepositoryDbUnitMannerTest {
 
     private static final String TODO_TABLE = "todo";
     private static final String ID_COLUMN = "id";
+    private static final String TODO_DATA_SET = "xml/dataset/todoDataSet.xml";
+    private static final String SAVE_S_EXPECTED_DATA_SET = "xml/dataset/saveSExpectedDataSet.xml";
+    private static final String SAVE_ITERABLE_OF_S_EXPECTED_DATA_SET = "xml/dataset/saveIterableOfSExpectedDataSet.xml";
+    private static final String DELETE_ID_EXPECTED_DATA_SET = "xml/dataset/deleteIdExpectedDataSet.xml";
+    private static final String DELETE_T_EXPECTED_DATA_SET = "xml/dataset/deleteTExpectedDataSet.xml";
+    private static final String DELETE_ITERABLE_OF_Q_EXTENDS_T_EXPECTED_DATA_SET = "xml/dataset/deleteIterableOfQextendsTExpectedDataSet.xml";
 
     @Autowired
     private TodoRepository todoRepository;
@@ -88,7 +94,7 @@ public class TodoRepositoryDbUnitMannerTest {
         databaseTester.setTearDownOperation(DatabaseOperation.NONE);
 
         IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("xml/todoDataSet.xml"));
+                .getResourceAsStream(TODO_DATA_SET));
         databaseTester.setDataSet(dataSet);
 
         databaseTester.onSetup();
@@ -118,7 +124,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.save(todo);
 
         // THEN
-        dataChecker.verifyTableData(TODO_TABLE, "xml/saveSExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, SAVE_S_EXPECTED_DATA_SET);
     }
 
     /**
@@ -136,7 +142,7 @@ public class TodoRepositoryDbUnitMannerTest {
                 new Todo(6L, "Ajouter les package-info.", true)));
 
         // THEN
-        dataChecker.verifyTableData(TODO_TABLE, "xml/saveIterableOfSExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, SAVE_ITERABLE_OF_S_EXPECTED_DATA_SET);
     }
 
     /**
@@ -156,7 +162,7 @@ public class TodoRepositoryDbUnitMannerTest {
         assertThat(todo.getId()).isEqualTo(2);
         assertThat(todo.getLabel()).isEqualTo("Constituer les jeux de données de test pour DbUnit.");
 
-        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, TODO_DATA_SET);
     }
 
     /**
@@ -173,7 +179,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(exists).isFalse();
-        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, TODO_DATA_SET);
     }
 
     /**
@@ -189,7 +195,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(todos).hasSize(4);
-        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, TODO_DATA_SET);
     }
 
     /**
@@ -206,7 +212,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(todos).hasSize(2);
-        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, TODO_DATA_SET);
     }
 
     /**
@@ -222,7 +228,7 @@ public class TodoRepositoryDbUnitMannerTest {
 
         // THEN
         assertThat(count).isEqualTo(4);
-        dataChecker.verifyTableData(TODO_TABLE, "xml/todoDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, TODO_DATA_SET);
     }
 
     /**
@@ -238,7 +244,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.delete(1L);
 
         // THEN
-        dataChecker.verifyTableData(TODO_TABLE, "xml/deleteIdExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, DELETE_ID_EXPECTED_DATA_SET);
     }
 
     /**
@@ -254,7 +260,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.delete(new Todo(2L));
 
         // THEN
-        dataChecker.verifyTableData(TODO_TABLE, "xml/deleteTExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, DELETE_T_EXPECTED_DATA_SET);
     }
 
     /**
@@ -270,7 +276,7 @@ public class TodoRepositoryDbUnitMannerTest {
         todoRepository.delete(Arrays.asList(new Todo(2L), new Todo(4L)));
 
         // THEN
-        dataChecker.verifyTableData(TODO_TABLE, "xml/deleteIterableOfQextendsTExpectedDataSet.xml");
+        dataChecker.verifyTableData(TODO_TABLE, DELETE_ITERABLE_OF_Q_EXTENDS_T_EXPECTED_DATA_SET);
     }
 
     /**

@@ -67,10 +67,18 @@ import com.google.common.collect.Lists;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataAccessLayerConfig.class, loader = AnnotationConfigContextLoader.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DataSetTestExecutionListener.class })
-@DataSet("/xml/todoDataSet.xml")
+@DataSet(TodoRepositorySpringDbUnitTestMannerTest.TODO_DATA_SET)
 public class TodoRepositorySpringDbUnitTestMannerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositorySpringDbUnitTestMannerTest.class);
+
+    static final String TODO_DATA_SET = "/xml/dataset/todoDataSet.xml";
+    private static final String SAVE_S_EXPECTED_DATA_SET = "/xml/dataset/saveSExpectedDataSet.xml";
+    private static final String SAVE_ITERABLE_OF_S_EXPECTED_DATA_SET = "/xml/dataset/saveIterableOfSExpectedDataSet.xml";
+    private static final String DELETE_ID_EXPECTED_DATA_SET = "/xml/dataset/deleteIdExpectedDataSet.xml";
+    private static final String DELETE_T_EXPECTED_DATA_SET = "/xml/dataset/deleteTExpectedDataSet.xml";
+    private static final String DELETE_ITERABLE_OF_Q_EXTENDS_T_EXPECTED_DATA_SET = "/xml/dataset/deleteIterableOfQextendsTExpectedDataSet.xml";
+    private static final String DELETE_ALL_EXPECTED_DATA_SET = "/xml/dataset/deleteAllExpectedDataSet.xml";
 
     @Autowired
     private TodoRepository todoRepository;
@@ -133,7 +141,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * @throws SQLException
      */
     @Test
-    @ExpectedDataSet("/xml/saveSExpectedDataSet.xml")
+    @ExpectedDataSet(SAVE_S_EXPECTED_DATA_SET)
     public void testSaveS() throws SQLException {
         // GIVEN
         Todo todo = new Todo(5L, "Refactoring.", false);
@@ -148,7 +156,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/saveIterableOfSExpectedDataSet.xml")
+    @ExpectedDataSet(SAVE_ITERABLE_OF_S_EXPECTED_DATA_SET)
     public void testSaveIterableOfS() {
         todoRepository.save(Arrays.asList( //
                 new Todo(5L, "Documenter le code.", true), //
@@ -161,7 +169,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/todoDataSet.xml")
+    @ExpectedDataSet(TODO_DATA_SET)
     public void testFindOne() {
         // WHEN
         Todo todo = todoRepository.findOne(2L);
@@ -178,7 +186,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/todoDataSet.xml")
+    @ExpectedDataSet(TODO_DATA_SET)
     public void testExists() {
         // WHEN
         boolean exists = todoRepository.exists(5L);
@@ -192,7 +200,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * {@link org.springframework.data.repository.CrudRepository#findAll()}.
      */
     @Test
-    @ExpectedDataSet("/xml/todoDataSet.xml")
+    @ExpectedDataSet(TODO_DATA_SET)
     public void testFindAll() {
         // WHEN
         List<Todo> todos = Lists.newArrayList(todoRepository.findAll());
@@ -207,7 +215,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/todoDataSet.xml")
+    @ExpectedDataSet(TODO_DATA_SET)
     public void testFindAllIterableOfID() {
         // WHEN
         Iterable<Todo> todos = todoRepository.findAll(Arrays.asList(new Long(2), new Long(4)));
@@ -221,7 +229,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * {@link org.springframework.data.repository.CrudRepository#count()}.
      */
     @Test
-    @ExpectedDataSet("/xml/todoDataSet.xml")
+    @ExpectedDataSet(TODO_DATA_SET)
     public void testCount() {
         // WHEN
         long count = todoRepository.count();
@@ -236,7 +244,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/deleteIdExpectedDataSet.xml")
+    @ExpectedDataSet(DELETE_ID_EXPECTED_DATA_SET)
     public void testDeleteID() {
         todoRepository.delete(1L);
     }
@@ -247,7 +255,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/deleteTExpectedDataSet.xml")
+    @ExpectedDataSet(DELETE_T_EXPECTED_DATA_SET)
     public void testDeleteT() {
         todoRepository.delete(new Todo(2L));
     }
@@ -258,7 +266,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * .
      */
     @Test
-    @ExpectedDataSet("/xml/deleteIterableOfQextendsTExpectedDataSet.xml")
+    @ExpectedDataSet(DELETE_ITERABLE_OF_Q_EXTENDS_T_EXPECTED_DATA_SET)
     public void testDeleteIterableOfQextendsT() {
         // WHEN
         todoRepository.delete(Arrays.asList(new Todo(2L), new Todo(4L)));
@@ -269,7 +277,7 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * {@link org.springframework.data.repository.CrudRepository#deleteAll()}.
      */
     @Test
-    @ExpectedDataSet("/xml/deleteAllExpectedDataSet.xml")
+    @ExpectedDataSet(DELETE_ALL_EXPECTED_DATA_SET)
     public void testDeleteAll() {
         todoRepository.deleteAll();
     }
