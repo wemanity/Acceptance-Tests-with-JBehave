@@ -14,10 +14,6 @@
     <name>Application with Database</name>
     <description>Prototype d'application qui gère des listes de todos.</description>
 
-    <properties>
-        <springframework.version>4.0.6.RELEASE</springframework.version>
-    </properties>
-
     <dependencies>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Spring Framework ~~~ -->
@@ -25,13 +21,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
 
         <dependency>
@@ -59,11 +53,31 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>4.3.5.Final</version>
+            <exclusions>
+                <!-- Exclure Log4J à la faveur de SLF4J. -->
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.5.Final</version>
+            <exclusions>
+                <!-- Exclure Log4J à la faveur de SLF4J. -->
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Il faut fournir à Hibernate un adaptateur entre Log4J et SLF4J. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.7.7</version>
         </dependency>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -86,8 +100,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${springframework.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -101,13 +113,21 @@
             <version>3.2</version>
         </dependency>
 
+        <!-- ~~~~~~~~~~~~~~ -->
+        <!-- ~~~ DbUnit ~~~ -->
+        <!-- ~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>dbunit-facilitation</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- ~~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Utilitaires ~~~ -->
         <!-- ~~~~~~~~~~~~~~~~~~~ -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>17.0</version>
         </dependency>
     </dependencies>
 </project>

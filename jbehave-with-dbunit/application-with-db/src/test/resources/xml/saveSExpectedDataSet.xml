@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <todo id="1" label="Ecrire les tests d'acceptation JBehave." done="false" />
+    <todo id="2" label="Constituer les jeux de données de test pour DbUnit." done="false" />
+    <todo id="3" label="Implémenter la couche de service." done="false" />
+    <todo id="4" label="Implémenter la couche de persistance." done="false" />
+    <todo id="5" label="Refactoring." done="false" />
+</dataset>

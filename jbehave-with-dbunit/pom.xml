@@ -17,5 +17,79 @@
         <module>application-with-db</module>
         <module>hsqldb-source</module>
         <module>acceptance-tests-with-dbunit</module>
+        <module>dbunit-facilitation</module>
     </modules>
+
+    <properties>
+        <springframework.version>4.0.6.RELEASE</springframework.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ Spring Framework ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${springframework.version}</version>
+                <exclusions>
+                    <!-- Exclure Commons Logging à la faveur de SLF4J. -->
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- Il faut fournir à Spring Core un adaptateur entre JCL et 
+                SLF4J. -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>1.7.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${springframework.version}</version>
+                <exclusions>
+                    <!-- Exclure Commons Logging à la faveur de SLF4J. -->
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- ~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ Testing ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~ -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${springframework.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ Utilitaires ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~ -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>17.0</version>
+            </dependency>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ Built-in Dependencies ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>dbunit-facilitation</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

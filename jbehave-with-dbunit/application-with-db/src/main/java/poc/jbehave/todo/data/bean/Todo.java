@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.google.common.base.Objects;
 
@@ -17,6 +18,7 @@ import com.google.common.base.Objects;
  * @author Xavier Pigeon
  */
 @Entity(name = "todo")
+@Table(name = "todo")
 public class Todo {
 
     @Id
@@ -31,6 +33,29 @@ public class Todo {
      * Constructeur par défaut.
      */
     public Todo() {}
+
+    /**
+     * Constructeur.
+     * 
+     * @param id l'identifiant
+     */
+    public Todo(Long id) {
+        this.id = id;
+        label = "";
+        done = false;
+    }
+
+    /**
+     * Constructeur.
+     * 
+     * @param id l'identifiant
+     * @param label le libellé
+     */
+    public Todo(Long id, String label) {
+        this.id = id;
+        this.label = label;
+        done = false;
+    }
 
     /**
      * Constructeur.
