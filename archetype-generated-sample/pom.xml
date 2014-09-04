@@ -21,17 +21,19 @@
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-spring</artifactId>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
             <classifier>resources</classifier>
             <type>zip</type>
+            <version>${jbehave.core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jbehave.site</groupId>
             <artifactId>jbehave-site-resources</artifactId>
             <type>zip</type>
+            <version>${jbehave.site.version}</version>
         </dependency>
     </dependencies>
 
