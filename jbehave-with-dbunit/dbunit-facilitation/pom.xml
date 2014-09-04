@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>poc.jbehave</groupId>
+        <artifactId>jbehave-with-dbunit</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>dbunit-facilitation</artifactId>
+    <name>DbUnit Facilitation</name>
+
+    <dependencies>
+        <!-- ~~~~~~~~~~~~~ -->
+        <!-- ~~~ JUnit ~~~ -->
+        <!-- ~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- ~~~~~~~~~~~~~ -->
+        <!-- ~~~ Mocks ~~~ -->
+        <!-- ~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.2</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Assertions ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~ -->
+        <!-- ~~~ DbUnit ~~~ -->
+        <!-- ~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.5.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.excilys.ebi.spring-dbunit</groupId>
+            <artifactId>spring-dbunit-test</artifactId>
+            <version>1.3.0</version>
+            <scope>compile</scope>
+            <exclusions>
+                <!-- Exclure les dépendances transitives à Spring dans des 
+                    versions antérieures à la version utilisée par le projet. -->
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-orm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-tx</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Spring Framework ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Inclure les modules de Spring nécessaires à Spring DbUnit Test. -->
+        <!-- Début - Spring DbUnit Test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <!-- Fin - Spring DbUnit Test -->
+
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Logging ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>poc.jbehave</groupId>
+            <artifactId>logging-dependency</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Utilitaires ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>excilys-repository</id>
+            <url>http://repository.excilys.com/content/repositories/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>

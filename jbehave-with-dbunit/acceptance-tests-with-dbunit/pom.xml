@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>poc.jbehave</groupId>
+        <artifactId>jbehave-with-dbunit</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>acceptance-tests-with-dbunit</artifactId>
+    <name>Acceptance Tests with DbUnit</name>
+
+    <dependencies>
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ JBehave ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-spring</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-test</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>jbehave-junit-runner</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Assertions ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Logging ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>poc.jbehave</groupId>
+            <artifactId>logging-dependency</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Todo Dependencies ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>application-with-db</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>poc.jbehave</groupId>
+            <artifactId>dbunit-facilitation</artifactId>
+        </dependency>
+    </dependencies>
+</project>

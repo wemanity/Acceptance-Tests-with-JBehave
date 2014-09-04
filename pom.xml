@@ -21,5 +21,6 @@
         <module>when-tests-and-code-separated</module>
         <module>logging-dependency</module>
         <module>french-acceptance-tests</module>
+        <module>jbehave-with-dbunit</module>
     </modules>
 </project>
