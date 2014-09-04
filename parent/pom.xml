@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>poc.jbehave</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Parent</name>
+    <description>Module parent.</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.java.source>1.8</project.build.java.source>
+        <project.build.java.target>1.8</project.build.java.target>
+        <jbehave.core.version>3.9.2</jbehave.core.version>
+        <jbehave.site.version>3.1.1</jbehave.site.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>${project.build.java.source}</source>
+                        <target>${project.build.java.target}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.jbehave</groupId>
+                    <artifactId>jbehave-maven-plugin</artifactId>
+                    <version>${jbehave.core.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jbehave</groupId>
+                <artifactId>jbehave-spring</artifactId>
+                <version>${jbehave.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jbehave</groupId>
+                <artifactId>jbehave-core</artifactId>
+                <version>${jbehave.core.version}</version>
+                <classifier>resources</classifier>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jbehave.site</groupId>
+                <artifactId>jbehave-site-resources</artifactId>
+                <version>${jbehave.site.version}</version>
+                <type>zip</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <organization>
+        <name>Wemanity</name>
+    </organization>
+    <developers>
+        <developer>
+            <id>xpn</id>
+            <name>Xavier Pigeon</name>
+            <email>xpigeon@wemanity.com</email>
+            <url>http://www.wemanity.com/</url>
+            <roles>
+                <role>Technical Leader</role>
+            </roles>
+            <organization>Wemanity</organization>
+            <organizationUrl>http://www.wemanity.com/</organizationUrl>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+</project>
