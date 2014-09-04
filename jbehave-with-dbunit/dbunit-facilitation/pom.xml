@@ -22,6 +22,24 @@
             <artifactId>junit</artifactId>
             <scope>compile</scope>
         </dependency>
+        
+        <!-- ~~~~~~~~~~~~~ -->
+        <!-- ~~~ Mocks ~~~ -->
+        <!-- ~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.2</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Assertions ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- ~~~~~~~~~~~~~~ -->
         <!-- ~~~ DbUnit ~~~ -->
@@ -89,6 +107,15 @@
             <version>${springframework.version}</version>
         </dependency>
         <!-- Fin - Spring DbUnit Test -->
+
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Logging ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>poc.jbehave</groupId>
+            <artifactId>logging-dependency</artifactId>
+            <type>pom</type>
+        </dependency>
 
         <!-- ~~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~ Utilitaires ~~~ -->

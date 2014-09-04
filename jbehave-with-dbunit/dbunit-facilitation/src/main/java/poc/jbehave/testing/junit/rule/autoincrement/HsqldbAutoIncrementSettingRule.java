@@ -3,6 +3,7 @@
  */
 package poc.jbehave.testing.junit.rule.autoincrement;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Connection;
@@ -53,12 +54,16 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
      */
     @PostConstruct
     void initialize() {
+        assertThat(dataSource).isNotNull();
+
         try {
             connection = dataSource.getConnection();
         } catch (SQLException e) {
             LOGGER.error("Impossible to get connection!");
             fail("Impossible to get connection!");
         }
+
+        assertThat(connection).isNotNull();
     }
 
     /**
@@ -75,12 +80,13 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
     private void resetSqlAutoIncrementColumn(Connection connection) {
         try {
             Statement restartStatement = connection.createStatement();
-            restartStatement.executeQuery( //
-                    "ALTER TABLE " + tableName + " ALTER COLUMN " + columnName //
-                            + " RESTART WITH " + incrementReference() + ";");
+            String sqlQuery = "ALTER TABLE " + tableName + " ALTER COLUMN " + columnName //
+                    + " RESTART WITH " + incrementReference() + ";";
+            LOGGER.debug("SQL query: {}", sqlQuery);
+            restartStatement.executeQuery(sqlQuery);
             restartStatement.close();
         } catch (SQLException e) {
-            LOGGER.error("{}", e.getMessage());
+            LOGGER.error(e.getMessage());
             fail("Method resetSqlAutoIncrementColumn failed!");
         }
     }
