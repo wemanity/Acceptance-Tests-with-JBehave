@@ -1,7 +1,7 @@
 /**
  * 
  */
-package poc.jbehave.calculator;
+package poc.jbehave.steps;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -15,6 +15,7 @@ import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
+import poc.jbehave.calculator.Calculator;
 import poc.jbehave.calculator.plumbing.StepsDefinition;
 
 /**

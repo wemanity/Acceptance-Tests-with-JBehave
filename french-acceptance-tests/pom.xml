@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>poc.jbehave</groupId>
+        <artifactId>jbehave-poc</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>french-acceptance-tests</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>French Acceptance Tests</name>
+    <description>Ce module montre comment implémenter des tests avec JBehave en Français.</description>
+
+    <dependencies>
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ JBehave ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>jbehave-junit-runner</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>poc.jbehave</groupId>
+            <artifactId>logging-dependency</artifactId>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+</project>

@@ -19,5 +19,7 @@
         <module>parent</module>
         <module>archetype-generated-sample</module>
         <module>when-tests-and-code-separated</module>
+        <module>logging-dependency</module>
+        <module>french-acceptance-tests</module>
     </modules>
 </project>
