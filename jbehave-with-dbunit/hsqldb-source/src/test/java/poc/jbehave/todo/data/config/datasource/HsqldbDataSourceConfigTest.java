@@ -3,7 +3,7 @@
  */
 package poc.jbehave.todo.data.config.datasource;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.sql.DataSource;
 

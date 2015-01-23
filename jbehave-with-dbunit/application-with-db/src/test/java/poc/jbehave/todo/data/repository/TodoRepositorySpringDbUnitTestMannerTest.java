@@ -3,7 +3,7 @@
  */
 package poc.jbehave.todo.data.repository;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Connection;
@@ -103,7 +103,8 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
      * Ce repositionnement doit être fait avant chaque test.
      * </p>
      * 
-     * @param connection la connexion JDBC
+     * @param connection
+     *            la connexion JDBC
      */
     private void resetSqlAutoIncrementColumn(Connection connection) {
         try {
@@ -120,9 +121,11 @@ public class TodoRepositorySpringDbUnitTestMannerTest {
     /**
      * Renvoyer la valeur de l'identifiant maximal d'une table.
      * 
-     * @param connection la connexion JDBC
+     * @param connection
+     *            la connexion JDBC
      * @return la valeur de l'identifiant maximal d'une table
-     * @throws SQLException en cas d'erreur SQL
+     * @throws SQLException
+     *             en cas d'erreur SQL
      */
     private Long idMax(Connection connection) throws SQLException {
         Statement maxIdStatement = connection.createStatement();

@@ -13,7 +13,7 @@
     <artifactId>jbehave-poc</artifactId>
     <packaging>pom</packaging>
     <name>JBehave POC</name>
-    <description>Développements avec JBehave.</description>
+    <description>POC de pilotage des développements par les tests avec JBehave.</description>
 
     <modules>
         <module>parent</module>

@@ -3,8 +3,8 @@
  */
 package poc.jbehave.testing.dbunit.assertion;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.dbunit.Assertion.assertEquals;
-import static org.fest.assertions.Assertions.assertThat;
 
 import org.dbunit.IDatabaseTester;
 import org.dbunit.dataset.DefaultDataSet;

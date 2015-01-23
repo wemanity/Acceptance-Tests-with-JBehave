@@ -77,14 +77,13 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <!-- ~~~ FEST Fluent Assertions ~~~ -->
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ Fluent Assertions ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <dependency>
-                <groupId>org.easytesting</groupId>
-                <artifactId>fest-assert</artifactId>
-                <version>1.4</version>
-                <scope>test</scope>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>1.7.1</version>
             </dependency>
 
             <!-- ~~~~~~~~~~~~~~~ -->
@@ -110,7 +109,7 @@
             <email>xpigeon@wemanity.com</email>
             <url>http://www.wemanity.com/</url>
             <roles>
-                <role>Technical Leader</role>
+                <role>Technical Architect &amp; Agile Referent</role>
             </roles>
             <organization>Wemanity</organization>
             <organizationUrl>http://www.wemanity.com/</organizationUrl>

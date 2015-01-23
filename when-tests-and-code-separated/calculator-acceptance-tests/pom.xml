@@ -22,9 +22,9 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- ~~~~~~~~~~~~~JBehave~~~~~~~~~~~~~~~ -->
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~ -->
+        <!-- ~~~JBehave~~~ -->
+        <!-- ~~~~~~~~~~~~~ -->
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
@@ -38,14 +38,14 @@
             <artifactId>jbehave-junit-runner</artifactId>
         </dependency>
 
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- ~~~~~ FEST Fluent Assertions ~~~~~ -->
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~ Fluent Assertions ~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <dependency>
-            <groupId>org.easytesting</groupId>
-            <artifactId>fest-assert</artifactId>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>poc.jbehave</groupId>
             <artifactId>logging-dependency</artifactId>

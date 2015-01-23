@@ -3,7 +3,7 @@
  */
 package poc.jbehave.testing.junit.rule.autoincrement;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.sql.Connection;
@@ -149,7 +149,8 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
     /**
      * Setter for the field tableName.
      * 
-     * @param tableName the tableName to set
+     * @param tableName
+     *            the tableName to set
      */
     public void setTableName(String tableName) {
         this.tableName = tableName;
@@ -167,7 +168,8 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
     /**
      * Setter for the field columnName.
      * 
-     * @param columnName the columnName to set
+     * @param columnName
+     *            the columnName to set
      */
     public void setColumnName(String columnName) {
         this.columnName = columnName;
@@ -185,7 +187,8 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
     /**
      * Setter for the field dataSource.
      * 
-     * @param dataSource the dataSource to set
+     * @param dataSource
+     *            the dataSource to set
      */
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -203,7 +206,8 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
     /**
      * Setter for the field connection.
      * 
-     * @param connection the connection to set
+     * @param connection
+     *            the connection to set
      */
     public void setConnection(Connection connection) {
         this.connection = connection;
@@ -221,7 +225,8 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
     /**
      * Setter for the field incrementReference.
      * 
-     * @param incrementReference the incrementReference to set
+     * @param incrementReference
+     *            the incrementReference to set
      */
     public void setIncrementReference(Long incrementReference) {
         this.incrementReference = incrementReference;
@@ -239,7 +244,8 @@ public class HsqldbAutoIncrementSettingRule extends ExternalResource {
     /**
      * Setter for the field incrementReferenceValued.
      * 
-     * @param incrementReferenceValued the incrementReferenceValued to set
+     * @param incrementReferenceValued
+     *            the incrementReferenceValued to set
      */
     public void setIncrementReferenceValued(boolean incrementReferenceValued) {
         this.incrementReferenceValued = incrementReferenceValued;
