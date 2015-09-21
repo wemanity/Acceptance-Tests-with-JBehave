@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package poc.jbehave;
 
@@ -22,9 +22,9 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.spring.SpringStepsFactory;
 import org.junit.runner.RunWith;
 
+import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 import poc.jbehave.calculator.plumbing.Springs;
 import poc.jbehave.calculator.plumbing.UTF8StoryLoader;
-import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 
 /**
  * <p>
@@ -36,15 +36,18 @@ import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
  * La classe {@link AllStoriesTest} peut être exécutée de la même manière qu'un
  * quelconque test JUnit.
  * </p>
- * 
+ *
  * @author Xavier Pigeon
  */
 @RunWith(JUnitReportingRunner.class)
 public class AllStoriesTest extends JUnitStories {
 
     private static final String PATH_TO_BE_EXCLUDED = "**/fail/*";
+
     private static final String PATH_TO_BE_INCLUDED = "**/*.story";
+
     private static final String BASE_PACKAGES = "poc.jbehave.steps";
+
     private final CrossReference xref = new CrossReference();
 
     public AllStoriesTest() {
@@ -55,7 +58,7 @@ public class AllStoriesTest extends JUnitStories {
                 .doIgnoreFailureInStories(false) //
                 .doIgnoreFailureInView(true) //
                 .doVerboseFailures(true) //
-                .useThreads(2) // 1 par défaut
+                .useThreads(1) // 1 par défaut
                 .useStoryTimeoutInSecs(6000);
     }
 

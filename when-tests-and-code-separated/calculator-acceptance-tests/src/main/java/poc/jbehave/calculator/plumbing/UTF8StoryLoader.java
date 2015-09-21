@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package poc.jbehave.calculator.plumbing;
 
@@ -15,7 +15,7 @@ import org.jbehave.core.io.StoryResourceNotFound;
  * Classe spéciale liée à JBehave, qui nous permet de nous affranchir des
  * problématiques d'encodage qui peuvent apparaître dans le cadre de
  * développements multi-plateformes.
- * 
+ *
  * @author Xavier Pigeon
  */
 public class UTF8StoryLoader implements StoryLoader {
@@ -39,7 +39,8 @@ public class UTF8StoryLoader implements StoryLoader {
         return loadResourceAsText(storyPath);
     }
 
-    private String loadResourceAsText(String resourcePath) {
+    @Override
+    public String loadResourceAsText(String resourcePath) {
         InputStream stream = resourceAsStream(resourcePath);
         try {
             return IOUtils.toString(stream, "UTF-8");
