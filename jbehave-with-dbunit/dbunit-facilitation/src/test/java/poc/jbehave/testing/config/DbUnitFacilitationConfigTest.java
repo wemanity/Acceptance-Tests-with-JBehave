@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package poc.jbehave.testing.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.createNiceMock;
 import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.niceMock;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 
@@ -29,7 +29,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 /**
  * Test Case for {@link DbUnitFacilitationConfig}.
- * 
+ *
  * @author Xavier Pigeon
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,10 +40,13 @@ public class DbUnitFacilitationConfigTest {
 
     @Autowired
     private DbUnitFacilitationConfig dbUnitFacilitationConfig;
+
     @Autowired
     private DataSource dataSource;
+
     @Autowired
     private Connection connection;
+
     @Autowired
     private IDatabaseTester databaseTester;
 
@@ -53,7 +56,7 @@ public class DbUnitFacilitationConfigTest {
 
         @Bean
         DataSource dataSource() {
-            DataSource dataSourceMock = createNiceMock(DataSource.class);
+            DataSource dataSourceMock = niceMock(DataSource.class);
             try {
                 expect(dataSourceMock.getConnection()).andReturn(connection());
             } catch (SQLException e) {
@@ -64,13 +67,13 @@ public class DbUnitFacilitationConfigTest {
 
         @Bean
         Connection connection() {
-            Connection connectionMock = createNiceMock(Connection.class);
+            Connection connectionMock = niceMock(Connection.class);
             return connectionMock;
         }
 
         @Bean
         IDatabaseTester databaseTester() {
-            return createNiceMock(IDatabaseTester.class);
+            return niceMock(IDatabaseTester.class);
         }
 
         @PostConstruct

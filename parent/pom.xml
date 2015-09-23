@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
     xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
@@ -83,7 +82,7 @@
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>1.7.1</version>
+                <version>3.2.0</version>
             </dependency>
 
             <!-- ~~~~~~~~~~~~~~~ -->
@@ -94,6 +93,15 @@
                 <artifactId>logging-dependency</artifactId>
                 <type>pom</type>
                 <version>${project.version}</version>
+            </dependency>
+
+            <!-- ~~~~~~~~~~~~~~~ -->
+            <!-- ~~~ Mocking ~~~ -->
+            <!-- ~~~~~~~~~~~~~~~ -->
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>3.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

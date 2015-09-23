@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package poc.jbehave.todo.data.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.mock;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 
@@ -32,11 +32,11 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
  * <p>
  * Test Case for {@link DataAccessLayerConfig}.
  * </p>
- * 
+ *
  * <p>
  * L'objectif est de tester la configuration de Spring.
  * </p>
- * 
+ *
  * @author Xavier Pigeon
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,16 +45,22 @@ public class DataAccessLayerConfigTest {
 
     @Autowired
     private DataAccessLayerConfig persistenceConfig;
+
     @Autowired
     private DataSource dataSource;
+
     @Autowired
     private Environment environment;
+
     @Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
+
     @Autowired
     private JpaTransactionManager transactionManager;
+
     @Autowired
     private PersistenceExceptionTranslationPostProcessor exceptionTranslation;
+
     @Autowired
     private HibernateExceptionTranslator hibernateExceptionTranslator;
 
@@ -64,7 +70,7 @@ public class DataAccessLayerConfigTest {
 
         @Bean
         Environment environment() {
-            Environment environment = createMock(Environment.class);
+            Environment environment = mock(Environment.class);
             expect(environment.getProperty("hsqldb.name")).andReturn("poc-db").once();
             expect(environment.getProperty("hsqldb.schema")).andReturn("classpath:/sql/schema.sql").once();
             expect(environment.getProperty("hsqldb.data")).andReturn("classpath:/sql/data.sql").once();
