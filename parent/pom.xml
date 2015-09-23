@@ -15,8 +15,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.java.source>1.8</project.build.java.source>
         <project.build.java.target>1.8</project.build.java.target>
-        <jbehave.core.version>4.0.2</jbehave.core.version>
-        <jbehave.site.version>3.1.1</jbehave.site.version>
+        <jbehave.core.version>4.0.4</jbehave.core.version>
+        <jbehave.site.version>3.3</jbehave.site.version>
     </properties>
 
     <build>
