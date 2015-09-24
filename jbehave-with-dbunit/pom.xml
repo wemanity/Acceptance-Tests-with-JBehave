@@ -21,7 +21,7 @@
     </modules>
 
     <properties>
-        <springframework.version>4.0.6.RELEASE</springframework.version>
+        <springframework.version>4.2.1.RELEASE</springframework.version>
     </properties>
 
     <dependencyManagement>
@@ -46,7 +46,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
-                <version>1.7.7</version>
+                <version>1.7.12</version>
             </dependency>
 
             <dependency>
@@ -78,7 +78,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>17.0</version>
+                <version>18.0</version>
             </dependency>
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
